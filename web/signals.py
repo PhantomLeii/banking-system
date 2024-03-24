@@ -1,0 +1,37 @@
+from .models import User, Account, Transaction
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+import uuid, string, random
+
+
+@receiver(pre_save, sender=User)
+def generate_customer_id(sender, instance, **kwargs):
+    '''
+    Generate a random uuid code for customer identification.
+    '''
+    if not instance.customer_id:
+        instance.customer_id = str(uuid.uuid4())[:12]
+
+
+@receiver(pre_save, sender=Account)
+def generate_account_number(sender, instance, **kwargs):
+    '''
+    Generate random alphanumeric code for account
+    identification.
+    '''
+    if not instance.number:
+        letters = ''.join(random.choices(string.ascii_letters, k=4))
+        digits = ''.join(random.choices(string.digits, k=6))
+
+        instance.number = f'{ letters }_{ digits }'
+
+
+@receiver(pre_save, sender=Transaction)
+def generate_transation_id(sender, instance, **kwargs):
+    '''
+    Generate random uuid code for transaction
+    identification
+    '''
+    if not instance.transaction_id:
+        instance.transaction_id = str(uuid.uuid3)[:10]
+        

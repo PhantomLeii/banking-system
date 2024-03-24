@@ -1,13 +1,13 @@
 from rest_framework.viewsets import ModelViewSet
 
 
-class UserView(ModelViewSet):
+class UserViewSet(ModelViewSet):
     pass
 
 
-class Account(ModelViewSet):
+class AccountViewSet(ModelViewSet):
     pass
 
 
-class Transaction(ModelViewSet):
+class TransactionViewSet(ModelViewSet):
     pass

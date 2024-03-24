@@ -13,7 +13,7 @@ class Account(models.Model):
     )
     number = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_add_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     account_type = models.CharField(max_length=50, choices=TYPES)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
@@ -21,5 +21,5 @@ class Account(models.Model):
 class Transaction(models.Model):
     transaction_id = models.CharField(max_length=50, unique=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_add_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

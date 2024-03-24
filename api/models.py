@@ -30,3 +30,10 @@ class Account(models.Model):
     status = models.CharField(max_length=50, choices=STATUS)
     date_created = models.DateTimeField(auto_now_add=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+
+class Transaction(models.model):
+    transaction_id = models.CharField(max_length=50, unique=True)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)

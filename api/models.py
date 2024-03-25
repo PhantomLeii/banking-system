@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     GENDER = (
         ('M', 'Male'),
-        ('F', 'Female')
+        ('F', 'Female'),
         ('O', 'Other'),
     )
     customer_id = models.CharField(max_length=50, unique=True)

@@ -9,7 +9,7 @@ from .serializers import UserSerializer
 class UserAPIView(APIView):
     def get_user_object(self, request):
         try:
-            user = User.objects.get(id=1)
+            user = User.objects.get(id=2)
         except User.DoesNotExist:
             return Response({
                 'detail': 'User not found'
@@ -17,7 +17,7 @@ class UserAPIView(APIView):
 
         return user
 
-    def post(self, request):
+    def post(request):
         """Register new user"""
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -50,7 +50,18 @@ class UserAPIView(APIView):
 
 
 class AccountAPIView(APIView):
-    pass
+
+    @staticmethod
+    def user_object(request):
+        try:
+            user = User.objects.get(id=2)
+        except User.DoesNotExist:
+            return Response({
+                'detail': "user not found"
+            }, status.HTTP_404_NOT_FOUND)
+
+        return user
+
 
 
 class TransactionAPIView(APIView):

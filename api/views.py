@@ -1,13 +1,26 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .models import User, Account, Transaction
 
 
-class UserViewSet(ModelViewSet):
+class UserAPView(APIView):
+    def get_user(self, request) -> User:
+        '''
+        Read user credentials from request
+        '''
+        pass    
+    
+    def get(self, request):
+        '''
+        View all user profile data
+        '''
+        pass        
+
+
+class AccountAPIView(APIView):
     pass
 
 
-class AccountViewSet(ModelViewSet):
-    pass
-
-
-class TransactionViewSet(ModelViewSet):
+class TransactionAPIView(APIView):
     pass

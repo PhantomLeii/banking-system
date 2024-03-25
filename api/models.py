@@ -32,7 +32,7 @@ class Account(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
 
-class Transaction(models.model):
+class Transaction(models.Model):
     transaction_id = models.CharField(max_length=50, unique=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)

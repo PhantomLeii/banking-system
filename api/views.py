@@ -1,24 +1,20 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_jwt.views import obtain_jwt_token
-from .models import User, Account, Transaction
+from rest_framework import status
 
-ObtainJWTToken = obtain_jwt_token
+from .models import User, Account, Transaction
+from .serializers import UserSerializer
 
 
 class UserAPView(APIView):
-    def get_user(self, request) -> User:
+    def post(self, request):
         '''
-        Read user credentials from request
-        authorization header
+        Register new user
         '''
-        pass    
-    
-    def get(self, request):
-        '''
-        View all user profile data
-        '''
-        pass        
+        serializer = UserSerializer(request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        return Response(serializer.data, status.HTTP_201_CREATED)
 
 
 class AccountAPIView(APIView):

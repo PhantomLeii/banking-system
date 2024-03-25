@@ -11,11 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
         }
       
     def create(self, valiated_data) -> User:
-        user = User(**valiated_data)
-        user.set_password(valiated_data['password'])
-        user.save()
-        return user
-
+        password = valiated_data.pop('password', None)
+        instance = self.Meta.model(**valiated_data)
+        
+        if password is not None:
+            instance.set_password(password)
+        
+        instance.save()
+        return instance
 
 class AccountSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@rra(ke3=#hah_6_o$9g%f%6j&4y^$e)6o57+j=m4k!k10z5$m
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-AUTH_USER_MODEL = 'web.User'
+AUTH_USER_MODEL = 'api.User'
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
-    'rest_framework_jwt',
 ]
 
 MIDDLEWARE = [
@@ -103,17 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'api.utils.jwt_response_payload_handler',
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60),
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

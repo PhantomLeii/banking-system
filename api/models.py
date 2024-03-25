@@ -10,7 +10,7 @@ class User(AbstractUser):
     )
     username = None
     email = models.EmailField(max_length=255, unique=True)
-    customer_id = models.CharField(max_length=50, unique=True)
+    customer_id = models.CharField(max_length=50, unique=True, blank=True)
     gender = models.CharField(max_length=20, choices=GENDER)
     age = models.IntegerField()
 

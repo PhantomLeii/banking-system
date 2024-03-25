@@ -6,7 +6,7 @@ from .models import User, Account, Transaction
 from .serializers import UserSerializer
 
 
-class UserAPView(APIView):
+class UserAPIView(APIView):
     def post(self, request):
         '''
         Register new user

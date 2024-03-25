@@ -26,6 +26,18 @@ class UserAPIView(APIView):
         users = User.objects.get(id=1)
         serializer = UserSerializer(users)
         return Response(serializer.data, status.HTTP_200_OK)
+    
+    def patch(self, request):
+        '''
+        Partialy update user profile data
+        '''
+        pass
+
+    def delete(self, delete):
+        '''
+        Delete current user profile
+        '''
+        pass
 
 
 class AccountAPIView(APIView):

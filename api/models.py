@@ -127,7 +127,7 @@ class Account(models.Model):
 
     def __str__(self):
         user_name = self.owner.__str__()
-        return f'{user_name}: {self.number}'
+        return f'{user_name}: Account - {self.number}'
 
 
 class Transaction(models.Model):

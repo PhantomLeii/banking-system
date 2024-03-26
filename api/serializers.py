@@ -1,35 +1,34 @@
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
 from .models import User, Account, Transaction
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            'customer_id', 'email','first_name',
-            'last_name', 'age', 'gender',
+        exclude = (
+            'date_joined',  'last_login', 'is_staff',
+            'is_active', 'is_superuser',
         )
         extra_kwargs = {
             'password': { 'write_only': True },
         }
       
-    def create(self, valiated_data) -> User:
+    def create(self, valiated_data):
         password = valiated_data.pop('password', None)
         instance = self.Meta.model(**valiated_data)
         
         if password is not None:
             instance.set_password(password)
-        
         instance.save()
         return instance
 
-class AccountSerializer(serializers.HyperlinkedModelSerializer):
+class AccountSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Account
         fields = '__all__'
 
 
-class TransactionSerializer(serializers.HyperlinkedModelSerializer):
+class TransactionSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Transaction
         fields = '__all__'

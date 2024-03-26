@@ -64,20 +64,47 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('F', 'Female'),
         ('O', 'Other'),
     )
-    username = None
+
+    ETHNICITY = (
+        ('B', 'Black'),
+        ('W', 'White'),
+        ('M', 'Mixed'),
+        ('A', 'Asian'),
+    )
+    customerID = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    customer_id = models.CharField(max_length=50, unique=True, blank=True)
-    gender = models.CharField(max_length=20, choices=GENDER)
+    firstName = models.CharField(max_length=255, default='')
+    lastName = models.CharField(max_length=255, default='')
+    phoneNumber = models.CharField(max_length=50, unique=True, default='')
+    dateOfBirth = models.DateField()
     age = models.IntegerField()
+    gender = models.CharField(max_length=50, choices=GENDER)
+    ethnicity = models.CharField(max_length=50, choices=ETHNICITY)
+    street = models.CharField(max_length=255, default='')
+    suburb = models.CharField(max_length=255, default='')
+    city = models.CharField(max_length=255, default='')
+
+
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    objects = UserManager
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = (
-        'first_name',
-        'last_name',
-    )
+    REQUIRED_FIELDS = [
+        'firstName',
+        'lastName',
+        'gender',
+        'ethnicity',
+        'phoneNumber'
+    ]
 
     def __str__(self):
-        return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
+        return self.email
 
 
 class Account(models.Model):

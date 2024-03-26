@@ -9,14 +9,14 @@ def generate_customer_id(sender, instance, **kwargs):
   '''
   Generate UUID code
   '''
-  if not instance.customer_id:
-      instance.customer_id = str(uuid.uuid4())[:12].replace('-', '')
+  if not instance.customerID:
+      instance.customerID = str(uuid.uuid4())[:12].replace('-', '')
 
 
 @receiver(pre_save, sender=Account)
 def generate_account_number(sender, instance, **kwargs):
     '''
-    Generate random alphanumeric code
+    Generate alphanumeric code
     '''
     if not instance.number:
        letters = ''.join(random.choices(string.ascii_letters, k=4)).upper()

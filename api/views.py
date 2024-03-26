@@ -1,7 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import User, Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
@@ -9,6 +12,7 @@ from .serializers import UserSerializer, AccountSerializer, TransactionSerialize
 
 def get_user_object(request):
     """Isolate user object"""
+    
     try:
         user = User.objects.get(id=2)
     except User.DoesNotExist:
@@ -25,7 +29,8 @@ class CreateUserView(CreateAPIView):
 
 
 class UserAPIView(APIView):
-
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         """View all user profile data"""

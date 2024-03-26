@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import User, Account, Transaction
-from .serializers import UserSerializer, AccountSerializer
+from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
 
 
 def get_user_object(request):
@@ -19,11 +19,14 @@ def get_user_object(request):
 
 
 class CreateUserView(CreateAPIView):
+    """Create user with no required permissions"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserAPIView(APIView):
+
+
     def get(self, request):
         """View all user profile data"""
         instance = get_user_object(request)
@@ -60,11 +63,8 @@ def get_user_accounts(request):
 
 
 class AccountAPIView(APIView):
-    def get(self, request):
-        """View owned bank account data"""
-        accounts = get_user_accounts(request)
-        serializer = AccountSerializer(accounts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    pass
+
 
 class TransactionAPIView(APIView):
     pass

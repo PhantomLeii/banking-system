@@ -4,17 +4,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
-from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from .models import User, Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
 
 
 def get_user_object(request):
     """Isolate user object"""
-    
     try:
-        user = User.objects.get(id=2)
+        user = User.objects.get(email=email)
     except User.DoesNotExist:
         return Response({
             'detail': 'User not found'
@@ -41,7 +38,6 @@ class UserAPIView(APIView):
     def patch(self, request):
         """Partially update user profile data"""
         instance = get_user_object(request)
-
         serializer = UserSerializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()

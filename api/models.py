@@ -38,10 +38,10 @@ class UserManager(BaseUserManager):
             password,
             **other_fields
     ):
-        if other_fields.get('is_staff') is not True:
-            raise ValueError('Super user muct be staff')
-        if other_fields.get('is_superuser') is not True:
-            raise ValueError('Super user must be superuser')
+        # if other_fields.get('is_staff') is not True:
+        #     raise ValueError('Super user muct be staff')
+        # if other_fields.get('is_superuser') is not True:
+        #     raise ValueError('Super user must be superuser')
         
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
@@ -71,22 +71,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('M', 'Mixed'),
         ('A', 'Asian'),
     )
-    customerID = models.CharField(max_length=50, unique=True)
+    customerID = models.CharField(max_length=50, unique=True, null=True)
     email = models.EmailField(max_length=255, unique=True)
     firstName = models.CharField(max_length=255, default='')
     lastName = models.CharField(max_length=255, default='')
     phoneNumber = models.CharField(max_length=50, unique=True, default='')
-    dateOfBirth = models.DateField()
-    age = models.IntegerField()
-    gender = models.CharField(max_length=50, choices=GENDER)
-    ethnicity = models.CharField(max_length=50, choices=ETHNICITY)
+    dateOfBirth = models.DateField(null=True)
+    age = models.IntegerField(null=True)
+    gender = models.CharField(max_length=50, choices=GENDER, default='')
+    ethnicity = models.CharField(max_length=50, choices=ETHNICITY, default='')
     street = models.CharField(max_length=255, default='')
     suburb = models.CharField(max_length=255, default='')
     city = models.CharField(max_length=255, default='')
 
 
     date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True, null=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

@@ -7,7 +7,8 @@ class UserSerializer(ModelSerializer):
         model = User
         exclude = (
             'date_joined',  'last_login', 'is_staff',
-            'is_active', 'is_superuser',
+            'is_active', 'is_superuser', 'groups',
+            'user_permissions',
         )
         extra_kwargs = {
             'password': { 'write_only': True },
@@ -25,7 +26,7 @@ class UserSerializer(ModelSerializer):
 class AccountSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Account
-        fields = '__all__'
+        exclude = ('owner',)
 
 
 class TransactionSerializer(HyperlinkedModelSerializer):

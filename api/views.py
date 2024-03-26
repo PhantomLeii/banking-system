@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -17,15 +18,12 @@ def get_user_object(request):
     return user
 
 
+class CreateUserView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class UserAPIView(APIView):
-    def post(request):
-        """Register new user"""
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data, status.HTTP_201_CREATED)
-
     def get(self, request):
         """View all user profile data"""
         instance = get_user_object(request)

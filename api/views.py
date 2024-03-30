@@ -6,17 +6,7 @@ from rest_framework import status
 
 from .models import User, Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
-
-
-def get_user_object(request):
-    """Isolate user object"""
-    try:
-        user = User.objects.get(email=email)
-    except User.DoesNotExist:
-        return Response({
-            'detail': 'User not found'
-        }, status.HTTP_404_NOT_FOUND)
-    return user
+from utils import get_user_object
 
 
 class CreateUserView(CreateAPIView):
@@ -26,12 +16,16 @@ class CreateUserView(CreateAPIView):
 
 
 class UserAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = []
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         """View all user profile data"""
         instance = get_user_object(request)
+        if instance is None:
+            return Response({
+                'detail': 'User not found',
+            }, status.HTTP_404_NOT_FOUND)
         serializer = UserSerializer(instance)
         return Response(serializer.data, status.HTTP_200_OK)
 

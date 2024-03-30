@@ -11,7 +11,6 @@ from django.contrib.auth import get_user_model
 from .models import Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
 from .auth import generate_refresh_token, generate_access_token
-from .utils import get_user_object
 
 
 @api_view(['POST'])

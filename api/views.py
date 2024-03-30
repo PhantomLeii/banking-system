@@ -77,3 +77,15 @@ class UserAPIView(APIView):
         return Response({
             'user': serialized_user,
         }, status.HTTP_200_OK)
+    
+    def patch(self, request):
+        """Partially update user data"""
+        user = request.user
+        serializer = UserSerializer(data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'detail': 'success',
+                'user': serializer.data
+            }, status.HTTP_200_OK)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

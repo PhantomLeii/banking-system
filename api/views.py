@@ -31,7 +31,7 @@ def login_view(request):
     
     try:
         user = user.objects.get(email=email)
-    except User.DoesNotExist:
+    except user.DoesNotExist:
         raise exceptions.AuthenticationFailed(
             'User not found'
         )

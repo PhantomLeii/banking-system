@@ -53,7 +53,23 @@ def login_view(request):
     return response
 
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def signup_view(request):
+    """Register new user to database"""
+    if request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'detail': 'Success',
+                'user': serializer.data
+            }, status.HTTP_201_CREATED)
+    return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
 class UserAPIView(APIView):
+
     def get(self, request):
         """Collect user data"""
         user = request.user

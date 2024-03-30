@@ -58,7 +58,7 @@ class UserAPIView(APIView):
     def get(self, request):
         """Collect user data"""
         user = request.user
-        serializer = UserSerializer(user).data
+        serialized_user = UserSerializer(user).data
         return Response({
-            'user': serializer,
+            'user': serialized_user,
         }, status.HTTP_200_OK)

@@ -8,8 +8,7 @@ from rest_framework import exceptions
 from rest_framework.decorators import api_view, permission_classes
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth import get_user_model
-
-from .models import User, Account, Transaction
+from .models import Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
 from .auth import generate_refresh_token, generate_access_token
 from .utils import get_user_object

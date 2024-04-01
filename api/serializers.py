@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer, HyperlinkedIdentityField
 from .models import User, Account, Transaction
 
 
@@ -23,10 +23,20 @@ class UserSerializer(ModelSerializer):
         instance.save()
         return instance
 
-class AccountSerializer(HyperlinkedModelSerializer):
+class AccountSerializer(ModelSerializer):
     class Meta:
         model = Account
         exclude = ('owner',)
+
+    def update(self, instance, validated_data):
+        instance.number = validated_data.get('number', instance.number)
+        if not instance.name:
+            instance.name = instance.number
+        
+        instance.account_type = validated_data.get('account_type', instance.account_type)
+        instance.status = validated_data.get('status', instance.status)
+        instance.balance = validated_data.get('balance', instance.balance)
+        return instance
 
 
 class TransactionSerializer(HyperlinkedModelSerializer):

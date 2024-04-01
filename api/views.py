@@ -104,3 +104,31 @@ class UserAPIView(APIView):
         return Response({
             'detail': 'Success',
         }, status.HTTP_204_NO_CONTENT)
+
+
+class AccountAPIView(APIView):
+    def get(self, request):
+        """List all account details"""
+        User = request.user
+        accounts = Account.objects.filter(owner=User)
+        if accounts:
+            serialized_accounts = AccountSerializer(accounts, many=True)
+            return Response({
+                'accounts': serialized_accounts.data
+            }, status.HTTP_200_OK)
+        
+        return Response({
+            'detail': 'No accounts'
+        }, status.HTTP_204_NO_CONTENT)
+    
+    def post(self, request):
+        """Create new account"""
+        serialized_account = AccountSerializer(Account, data=request.data, context={'request': request})
+        if serialized_account.is_valid():
+            serialized_account.save(owner=request.user)
+            return Response({
+                'detail': 'Success',
+                'account': serialized_account.data
+            }, status.HTTP_201_CREATED)
+        
+        return Response(serialized_account.errors, status.HTTP_400_BAD_REQUEST)

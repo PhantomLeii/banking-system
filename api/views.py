@@ -68,7 +68,6 @@ def signup_view(request):
 
 
 class UserAPIView(APIView):
-
     def get(self, request):
         """Collect user data"""
         user = request.user
@@ -88,3 +87,11 @@ class UserAPIView(APIView):
                 'user': serializer.data
             }, status.HTTP_200_OK)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request):
+        """Delete existing user"""
+        User = request.user
+        User.delete()
+        return Response({
+            'detail': 'Success',
+        }, status.HTTP_204_NO_CONTENT)

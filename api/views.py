@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from rest_framework import exceptions
 
@@ -51,11 +51,21 @@ def login_view(request):
     }
     return response
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def logout_view(request):
+    """Logout user"""
+    response = Response()
+    response.delete_cookie(key='refreshtoken')
+    return Response({
+        'detail': 'Success'
+    }, status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup_view(request):
-    """Register new user to database"""
+    """Register new user"""
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -69,7 +79,7 @@ def signup_view(request):
 
 class UserAPIView(APIView):
     def get(self, request):
-        """Collect user data"""
+        """List all user data"""
         user = request.user
         serialized_user = UserSerializer(user).data
         return Response({

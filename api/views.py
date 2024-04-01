@@ -80,8 +80,8 @@ class UserAPIView(APIView):
     
     def patch(self, request):
         """Partially update user data"""
-        user = request.user
-        serializer = UserSerializer(data=request.data, partial=True)
+        User = request.user
+        serializer = UserSerializer(User, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response({

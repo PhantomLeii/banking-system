@@ -61,7 +61,6 @@ def logout_view(request):
         'detail': 'Success'
     }, status.HTTP_200_OK)
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup_view(request):
@@ -74,6 +73,13 @@ def signup_view(request):
             'user': serializer.data
         }, status.HTTP_201_CREATED)
     return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def deposit_view(request, pk):
+    """Deposit money into account"""
+    pass
 
 
 class UserAPIView(APIView):
@@ -131,5 +137,18 @@ class AccountAPIView(APIView):
                 'detail': 'Success',
                 'account': serialized_account.data
             }, status.HTTP_201_CREATED)
-        
         return Response(serialized_account.errors, status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        """Delete existing account"""
+        try:
+            account = Account.objects.get(id=pk)
+        except Account.DoesNotExist:
+            return Response({
+                'detail': 'account not found'
+            }, status.HTTP_404_NOT_FOUND)
+        
+        account.delete()
+        return Response({
+            'detail': 'Success'
+        }, status.HTTP_204_NO_CONTENT)

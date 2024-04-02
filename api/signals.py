@@ -30,4 +30,4 @@ def generate_transaction_id(sender, instance, **kwargs):
     Generate UUID code
     '''
     if not instance.transaction_id:
-       instance.transaction_id = str(uuid.uuid3())[:10]
+       instance.transaction_id = str(uuid.uuid4())[:10]

@@ -79,7 +79,31 @@ def signup_view(request):
 @permission_classes([IsAuthenticated])
 def deposit_view(request, pk):
     """Deposit money into account"""
-    pass
+    try:
+        account = Account.objects.get(id=pk)
+    except Account.DoesNotExist:
+        return Response({
+            'detail': 'Account not found'
+        }, status.HTTP_404_NOT_FOUND)
+    
+    amount = request.data.get('amount', None)
+    if amount:
+        transaction = Transaction.objects.create(
+            amount=amount,
+            account=account
+        )
+        
+        transaction.save()
+
+        account.balance += amount
+        account.save()
+        
+        return Response({
+            'detail': 'deposit success'
+        }, status.HTTP_200_OK)
+    return Response({
+        'detail': 'No transfer amount given'
+    }, status.HTTP_400_BAD_REQUEST)
 
 
 class UserAPIView(APIView):

@@ -123,9 +123,10 @@ class AccountAPIView(APIView):
     
     def post(self, request):
         """Create new account"""
-        serialized_account = AccountSerializer(Account, data=request.data, context={'request': request})
+        user = get_user_model().objects.get(email=request.user)
+        serialized_account = AccountSerializer(data=request.data)
         if serialized_account.is_valid():
-            serialized_account.save(owner=request.user)
+            serialized_account.save(owner=user)
             return Response({
                 'detail': 'Success',
                 'account': serialized_account.data

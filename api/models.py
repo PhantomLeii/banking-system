@@ -117,7 +117,7 @@ class Account(models.Model):
         ('frozen', 'Frozen'),
         ('disabled', 'Disabled'),
     )
-    name = models.CharField(max_length=255, blank=True, default='')
+    name = models.CharField(max_length=255, default='')
     number = models.CharField(max_length=50, unique=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     account_type = models.CharField(max_length=50, choices=TYPES)

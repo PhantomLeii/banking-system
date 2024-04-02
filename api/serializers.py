@@ -28,18 +28,16 @@ class AccountSerializer(ModelSerializer):
         model = Account
         exclude = ('owner',)
 
-    def update(self, instance, validated_data):
-        instance.number = validated_data.get('number', instance.number)
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
         if not instance.name:
-            instance.name = instance.number
-        
-        instance.account_type = validated_data.get('account_type', instance.account_type)
-        instance.status = validated_data.get('status', instance.status)
-        instance.balance = validated_data.get('balance', instance.balance)
+            instance.name = validated_data.get('number')
+            instance.save()
+            return instance
+        instance.save()
         return instance
 
-
-class TransactionSerializer(HyperlinkedModelSerializer):
+class TransactionSerializer(ModelSerializer):
     class Meta:
         model = Transaction
         fields = '__all__'

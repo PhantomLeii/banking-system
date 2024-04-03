@@ -19,7 +19,7 @@ urlpatterns = [
 
     # Account related endpoints
     path('accounts/', AccountAPIView.as_view(), name='accounts'),
-    path('accounts/<int:pk>/', AccountAPIView.as_view(), name='del-account'),
+    path('account/delete/<int:pk>/', AccountAPIView.as_view(), name='del-account'),
     path('deposit/<int:pk>/', deposit_view, name='deposit'),
     path('account/detail/<int:pk>/', AccountDetailAPIView.as_view(), name='account-detail'),
 ]

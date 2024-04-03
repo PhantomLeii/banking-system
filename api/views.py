@@ -9,6 +9,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth import get_user_model
 from .models import Account, Transaction
 from .serializers import UserSerializer, AccountSerializer, TransactionSerializer
+from .utils import is_owner
 from .auth import generate_refresh_token, generate_access_token
 
 
@@ -198,7 +199,13 @@ class AccountDetailAPIView(APIView):
         serialized_account = AccountSerializer(account).data
         serialized_transactions = TransactionSerializer(transactions, many=True).data
 
+        if is_owner(request, account):
+            return Response({
+                'account': serialized_account,
+                'related_transactions': serialized_transactions
+            }, status.HTTP_200_OK)
+        
         return Response({
-            'account': serialized_account,
-            'relatedTransactions': serialized_transactions
-        }, status.HTTP_200_OK)
+            'detail': 'Forbidden'
+        }, status.HTTP_403_FORBIDDEN)
+

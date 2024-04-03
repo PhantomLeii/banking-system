@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer, HyperlinkedIdentityField
+from rest_framework.serializers import ModelSerializer
 from .models import User, Account, Transaction
 
 
@@ -23,19 +23,21 @@ class UserSerializer(ModelSerializer):
         instance.save()
         return instance
 
+
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = Account
-        exclude = ('owner',)
+        exclude = ('owner', 'id')
 
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         if not instance.name:
-            instance.name = validated_data.get('number')
+            instance.name = 'Not Named  '
             instance.save()
             return instance
         instance.save()
         return instance
+
 
 class TransactionSerializer(ModelSerializer):
     class Meta:

@@ -1,5 +1,5 @@
 from .models import User, Account, Transaction
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_init, pre_save
 from django.dispatch import receiver
 import uuid, string, random
 
@@ -13,7 +13,7 @@ def generate_customer_id(sender, instance, **kwargs):
       instance.customerID = str(uuid.uuid4())[:12].replace('-', '')
 
 
-@receiver(pre_save, sender=Account)
+@receiver(post_init, sender=Account)
 def generate_account_number(sender, instance, **kwargs):
     '''
     Generate alphanumeric code

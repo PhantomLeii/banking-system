@@ -103,10 +103,16 @@ def deposit_view(request, pk):
         transaction.save()
         account.balance += amount
         account.save()
+
+        if is_owner(request, account):
+            return Response({
+                'detail': 'deposit success'
+            }, status.HTTP_200_OK)
         
         return Response({
-            'detail': 'deposit success'
-        }, status.HTTP_200_OK)
+            'detail': "forbidden"
+        }, status.HTTP_403_FORBIDDEN)
+        
     return Response({
         'detail': 'No transfer amount given'
     }, status.HTTP_400_BAD_REQUEST)
@@ -178,10 +184,15 @@ class AccountAPIView(APIView):
                 'detail': 'account not found'
             }, status.HTTP_404_NOT_FOUND)
         
-        account.delete()
+        if is_owner(request, account):
+            account.delete()
+            return Response({
+                'detail': 'Success'
+            }, status.HTTP_204_NO_CONTENT)
+        
         return Response({
-            'detail': 'Success'
-        }, status.HTTP_204_NO_CONTENT)
+            'detail': 'Forbidden'
+        }, status.HTTP_403_FORBIDDEN)
 
 
 class AccountDetailAPIView(APIView):

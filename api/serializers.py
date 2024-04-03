@@ -32,7 +32,7 @@ class AccountSerializer(ModelSerializer):
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         if not instance.name:
-            instance.name = 'Not Named  '
+            instance.name = 'Not Named'
             instance.save()
             return instance
         instance.save()
@@ -42,4 +42,4 @@ class AccountSerializer(ModelSerializer):
 class TransactionSerializer(ModelSerializer):
     class Meta:
         model = Transaction
-        fields = '__all__'
+        exclude = ('id',)

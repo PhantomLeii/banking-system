@@ -79,6 +79,7 @@ def signup_view(request):
 @permission_classes([IsAuthenticated])
 def deposit_view(request, pk):
     """Deposit money into account"""
+    user = get_user_model().objects.get(email=request.user)
     try:
         account = Account.objects.get(id=pk)
     except Account.DoesNotExist:
@@ -86,15 +87,19 @@ def deposit_view(request, pk):
             'detail': 'Account not found'
         }, status.HTTP_404_NOT_FOUND)
     
+    if not account in Account.objects.filter(owner=user):
+        return Response({
+            'detail': 'Forbidden'
+        }, status.HTTP_403_FORBIDDEN)
+
     amount = request.data.get('amount', None)
     if amount:
         transaction = Transaction.objects.create(
             amount=amount,
-            account=account
+            account=account,
+            reference='CASH DEPOSIT'
         )
-        
         transaction.save()
-
         account.balance += amount
         account.save()
         
@@ -176,3 +181,24 @@ class AccountAPIView(APIView):
         return Response({
             'detail': 'Success'
         }, status.HTTP_204_NO_CONTENT)
+
+
+class AccountDetailAPIView(APIView):
+    def get(self, request, pk):
+        """Retrieve bank account data"""
+        try:
+            account = Account.objects.get(id=pk)
+        except Account.DoesNotExist:
+            return Response({
+                'detail': 'Account not found'
+            }, status.HTTP_404_NOT_FOUND)
+        
+        transactions = Transaction.objects.filter(account=pk)
+
+        serialized_account = AccountSerializer(account).data
+        serialized_transactions = TransactionSerializer(transactions, many=True).data
+
+        return Response({
+            'account': serialized_account,
+            'relatedTransactions': serialized_transactions
+        }, status.HTTP_200_OK)

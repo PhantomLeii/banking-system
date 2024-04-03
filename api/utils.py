@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from .models import Account
+from .models import Account, User
 from rest_framework import status
 from typing import Any
 
@@ -10,7 +10,7 @@ def is_owner(request: Any, account: Account) -> bool:
     """
     try:
         user = get_user_model().objects.get(email=request.user)
-    except:
+    except User.DoesNotExist:
         return False
     
     if account not in Account.objects.filter(owner=user):

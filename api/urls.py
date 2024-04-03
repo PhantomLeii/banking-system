@@ -6,7 +6,8 @@ from .views import (
     signup_view,
     logout_view,
     deposit_view,
-    AccountDetailAPIView
+    AccountDetailAPIView,
+    withdraw_view
 )
 
 
@@ -22,4 +23,5 @@ urlpatterns = [
     path('account/delete/<int:pk>/', AccountAPIView.as_view(), name='del-account'),
     path('deposit/<int:pk>/', deposit_view, name='deposit'),
     path('account/detail/<int:pk>/', AccountDetailAPIView.as_view(), name='account-detail'),
+    path('withdraw/<int:pk>/', withdraw_view, name='withdraw'),
 ]

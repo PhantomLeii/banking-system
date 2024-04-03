@@ -80,7 +80,39 @@ def signup_view(request):
 @permission_classes([IsAuthenticated])
 def deposit_view(request, pk):
     """Deposit money into account"""
-    user = get_user_model().objects.get(email=request.user)
+    try:
+        account = Account.objects.get(id=pk)
+    except Account.DoesNotExist:
+        return Response({
+            'detail': 'Account not found'
+        }, status.HTTP_404_NOT_FOUND)
+
+    if not is_owner(request, account):
+        return Response({
+            'detail': 'Forbidden'
+        }, status.HTTP_403_FORBIDDEN)
+    
+    amount = request.data.get('amount', None)
+    if amount:
+        account.balance += amount
+        account.save()
+
+        transaction = Transaction.objects.create(
+            amount=amount,
+            account=account,
+            reference='CASH DEPOSIT'
+        )
+        transaction.save()
+        
+    return Response({
+        'detail': 'No transfer amount given'
+    }, status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@ensure_csrf_cookie
+def withdraw_view(request, pk):
+    """Withdraw money from account"""
     try:
         account = Account.objects.get(id=pk)
     except Account.DoesNotExist:
@@ -88,33 +120,34 @@ def deposit_view(request, pk):
             'detail': 'Account not found'
         }, status.HTTP_404_NOT_FOUND)
     
-    if not account in Account.objects.filter(owner=user):
+    if not is_owner(request, account):
         return Response({
             'detail': 'Forbidden'
         }, status.HTTP_403_FORBIDDEN)
-
+    
     amount = request.data.get('amount', None)
     if amount:
-        transaction = Transaction.objects.create(
-            amount=amount,
-            account=account,
-            reference='CASH DEPOSIT'
-        )
-        transaction.save()
-        account.balance += amount
-        account.save()
+        if account.balance >= amount:
+            account.balance -= amount
+            account.save()
 
-        if is_owner(request, account):
+            transaction = Transaction.objects.create(
+                amount=amount,
+                account=account,
+                reference='CASH WITHDRAWAL'
+            )
+            transaction.save()
+
             return Response({
-                'detail': 'deposit success'
+                'detail': 'Withdrawal success'
             }, status.HTTP_200_OK)
-        
-        return Response({
-            'detail': "forbidden"
-        }, status.HTTP_403_FORBIDDEN)
-        
+        else:
+            return Response({
+                'detail': 'Insufficienct funds'
+            }, status.HTTP_400_BAD_REQUEST)
+
     return Response({
-        'detail': 'No transfer amount given'
+        'detail': 'No amount issued'
     }, status.HTTP_400_BAD_REQUEST)
 
 
@@ -146,7 +179,7 @@ class UserAPIView(APIView):
         return Response({
             'detail': 'Success',
         }, status.HTTP_204_NO_CONTENT)
-
+    
 
 class AccountAPIView(APIView):
     def get(self, request):
@@ -219,4 +252,3 @@ class AccountDetailAPIView(APIView):
         return Response({
             'detail': 'Forbidden'
         }, status.HTTP_403_FORBIDDEN)
-

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+	--clr-primary-bg: #252422;
+	--clr-secondary-bg: #403d39;
+	--clr-text-primary: #fffcf2;
+	--clr-text-secondary: #ccc5b9;
+	--clr-texture-btn: #eb5e28;
+	--clr-texture-btn-hover: #eb5f28c0;
+
+	font-size: 16px;
+}
+
+html {
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+.container {
+	padding: 0 4rem;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+h1 {
+	font-weight: 700;
+	font-size: 3rem;
+	letter-spacing: 0.8px;
+	color: var(--clr-text-primary);
+}
+
+h2 {
+	font-weight: 300;
+	font-size: 2rem;
+	letter-spacing: 0.5px;
+	color: var(--clr-text-secondary);
+}
+
+h3 {
+	font-weight: 500;
+	font-size: 1.3rem;
+	color: var(--clr-texture-btn);
+}

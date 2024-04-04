@@ -16,14 +16,40 @@ html {
 	scroll-behavior: smooth;
 }
 
+body {
+	background-color: var(--clr-primary-bg);
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
+	color: var(--clr-text-primary);
 }
 
 .container {
 	padding: 0 4rem;
+}
+
+#logo {
+	font-size: 2.3rem;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 500;
+}
+
+.nav-link {
+	font-weight: 300;
+	font-size: 1.5rem;
+	font-family: 'Ubuntu';
+	letter-spacing: 0.9px;
+	color: var(--clr-text-secondary);
+	border-bottom: solid 1px transparent;
+	transition: 0.45s;
+}
+
+.nav-link:hover {
+	color: var(--clr-text-primary);
+	border-bottom: solid 1px var(--clr-texture-btn-hover);
 }
 
 h1,

@@ -21,9 +21,17 @@ html {
 	box-sizing: border-box;
 }
 
+body {
+	background-color: var(--clr-primary-bg);
+}
+
 /* Global */
 .container {
 	padding: 0 4rem;
+}
+
+.sticky {
+	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
 }
 
 /* Navbar */
@@ -37,7 +45,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
+	z-index: 2;
 }
 
 #logo {
@@ -73,5 +81,39 @@ header {
 #menu-icon {
 	font-size: 1.5rem;
 	color: var(--clr-text-primary);
+	cursor: pointer;
 	display: none;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		padding: 0 2rem;
+	}
+
+	#menu-icon {
+		display: initial;
+	}
+
+	#menu {
+		position: absolute;
+		flex-direction: column;
+		top: -16rem;
+		left: 0;
+		background-color: var(--clr-primary-bg);
+		height: 0;
+		opacity: 0;
+		padding: 1rem 2rem;
+		width: 100%;
+		transition: 0.45s;
+		z-index: 1;
+	}
+
+	#menu.open {
+		top: 4rem;
+		opacity: 1;
+	}
+
+	.nav-link:hover {
+		border-bottom: 1px solid transparent;
+	}
 }

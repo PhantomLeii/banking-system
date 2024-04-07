@@ -50,3 +50,28 @@ header {
 	font-weight: 300;
 	color: var(--clr-texture-btn-hover);
 }
+
+#menu {
+	display: flex;
+	gap: 2rem;
+}
+
+.nav-link {
+	color: var(--clr-text-primary);
+	font-size: 1rem;
+	font-weight: 300;
+	border-bottom: 1px solid transparent;
+	transition: 0.45s;
+}
+
+.nav-link:hover,
+.active {
+	color: var(--clr-text-secondary);
+	border-bottom: 1px solid var(--clr-texture-btn-hover);
+}
+
+#menu-icon {
+	font-size: 1.5rem;
+	color: var(--clr-text-primary);
+	display: none;
+}

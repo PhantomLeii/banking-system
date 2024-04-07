@@ -7,165 +7,46 @@
 	--clr-text-secondary: #ccc5b9;
 	--clr-texture-btn: #eb5e28;
 	--clr-texture-btn-hover: #eb5f28c0;
-
-	font-size: 16px;
 }
 
 html {
-	overflow-x: hidden;
-	overflow-y: scroll;
-	scroll-behavior: smooth;
-}
-
-body {
-	background-color: var(--clr-primary-bg);
+	font-family: 'Outfit', sans-serif;
+	font-size: 16px;
 }
 
 * {
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
-	color: var(--clr-text-primary);
+	box-sizing: border-box;
 }
 
+/* Global */
 .container {
 	padding: 0 4rem;
 }
 
-.sticky {
-	box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-}
-
-#logo {
-	font-size: 2rem;
-	font-family: 'Ubuntu', sans-serif;
-	font-weight: 500;
-}
-
-#logo span {
-	color: var(--clr-texture-btn-hover);
-}
-
-.nav-link {
-	font-weight: 300;
-	font-size: 1.3rem;
-	font-family: 'Ubuntu';
-	letter-spacing: 0.9px;
-	color: var(--clr-text-secondary);
-	border-bottom: solid 1px transparent;
-	transition: 0.45s;
-}
-
-.nav-link:hover,
-.active {
-	color: var(--clr-text-primary);
-	border-bottom: solid 1px var(--clr-texture-btn-hover);
-}
-
-#menu-icon {
-	display: none;
-	font-size: 2rem;
-	transition: 0.45s;
-}
-
-h1,
-h2,
-h3 {
-	font-family: 'Ubuntu', sans-serif;
-}
-
-h1 {
-	font-weight: 700;
-	font-size: 3rem;
-	letter-spacing: 0.8px;
-	color: var(--clr-text-primary);
-}
-
-h2 {
-	font-weight: 300;
-	font-size: 2rem;
-	letter-spacing: 0.5px;
-	color: var(--clr-text-secondary);
-}
-
-h3 {
-	font-weight: 500;
-	font-size: 1.3rem;
-	color: var(--clr-texture-btn);
-}
-
-#navbar {
+/* Navbar */
+header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 4rem;
-	padding: 1rem;
+	height: 3.5rem;
+	background-color: var(--clr-primary-bg);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	z-index: 50;
-	transition: 0.45s;
-	background-color: var(--clr-primary-bg);
+	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
 }
 
-#menu nav {
-	display: flex;
-	gap: 2rem;
+#logo {
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: var(--clr-text-primary);
 }
 
-main {
-	position: relative;
-	top: 6rem;
-	left: 0;
-	height: 100vh;
-	width: 100%;
-}
-
-@media screen and (max-width: 768px) {
-	.container {
-		padding: 0 1.2rem;
-	}
-
-	#navbar {
-		width: 100vw;
-	}
-
-	#menu {
-		background-color: #1b1b19;
-		padding: 1rem;
-		position: absolute;
-		top: 0;
-		right: -300px;
-		opacity: 0;
-		width: 100vw;
-		max-width: 220px;
-		height: 100vh;
-		box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.7);
-		z-index: 100;
-		transition: 0.45s;
-	}
-
-	#menu nav {
-		position: relative;
-		top: 6rem;
-		flex-direction: column;
-		gap: 0.85rem;
-		z-index: 100;
-	}
-
-	#menu.active {
-		right: 0;
-		opacity: 1;
-	}
-
-	.nav-link:hover {
-		border-bottom: solid 1px transparent;
-	}
-
-	#menu-icon {
-		display: initial;
-		top: 1rem;
-		right: 1rem;
-	}
+#logo span {
+	font-weight: 300;
+	color: var(--clr-texture-btn-hover);
 }

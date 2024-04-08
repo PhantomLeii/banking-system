@@ -2,6 +2,7 @@
     <div class="logo">
         <a href="{% url "home" %}" id="logo">Nebula<span>Banks</span>.</a>
     </div>
+    {% if user.is_authenticated %}
     <i class='bx bx-menu' id='menu-icon'></i>
     <nav id="menu">
         <a href="{% url "home" %}" class="nav-link">Home</a>
@@ -9,4 +10,15 @@
         <a href="" class="nav-link">Services</a>
         <a href="" class="nav-link">Contact</a>
     </nav>
+    {% else %}
+    <i class='bx bx-menu' id='menu-icon'></i>
+    <nav id="menu">
+        <a href="{% url "home" %}" class="nav-link">Home</a>
+        <a href="" class="nav-link">Services</a>
+        <a href="" class="nav-link">Contact</a>
+        <a href="" class="user-admin">Login</a>
+        <a href="" class="user-admin">Register</a>
+    </nav>
+    {% endif %}
+    
 </header>

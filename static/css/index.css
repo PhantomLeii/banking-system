@@ -86,6 +86,16 @@ header {
 	z-index: 3;
 }
 
+.user-admin {
+	color: var(--clr-texture-btn);
+	font-weight: 600;
+	transition: 0.2s;
+}
+
+.user-admin:hover {
+	color: var(--clr-texture-btn-hover);
+}
+
 main {
 	height: auto;
 }

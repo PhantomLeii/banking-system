@@ -99,7 +99,7 @@ header {
 		position: absolute;
 		flex-direction: column;
 		top: 0;
-		right: 0;
+		right: -500px;
 		background-color: var(--clr-primary-bg);
 		height: fit-content;
 		padding: 1rem 2rem;
@@ -109,6 +109,10 @@ header {
 		transition: 0.45s;
 		box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.7);
 		z-index: 1;
+	}
+
+	#menu.open {
+		right: 0;
 	}
 
 	#menu .nav-link:nth-child(1) {

@@ -6,3 +6,6 @@ from django.views.generic import TemplateView
 
 class HomePageView(TemplateView):
     template_name = 'routes/index.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})

@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% if user.is_authenticated %}
+<main>
+	<section id="hero" class="container">
+		<h1>Your are logged in as {{ user.first_name }}</h1>
+	</section>
+</main>
+{% else %}
 <main>
 	<section id="hero" class="container">
 		<div class="content">
@@ -15,4 +21,4 @@
 		</div>
 	</section>
 </main>
-{% endblock content %}
+{% endif %} {% endblock content %}

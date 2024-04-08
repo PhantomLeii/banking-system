@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <form action="{% url "login" %}">
+        {% csrf_token %}
+        {% form.as_p %}
+    </form>
+</main>
+{% endblock content %}
+
+{% comment %} Add continue with login form {% endcomment %}

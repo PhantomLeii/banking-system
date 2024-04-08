@@ -9,3 +9,13 @@ class HomePageView(TemplateView):
 
     def get(self, request):
         return render(request, self.template_name, {})
+
+
+class LoginView(TemplateView):
+    template_name = 'routes/login_form.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+    
+    def post(self, request):
+        pass

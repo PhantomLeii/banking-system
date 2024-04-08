@@ -86,6 +86,66 @@ header {
 	z-index: 3;
 }
 
+main {
+	height: auto;
+}
+
+#hero {
+	height: calc(100vh - 4rem);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#hero h2 {
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: var(--clr-text-primary);
+	letter-spacing: 1.2px;
+	margin-bottom: 0.8rem;
+}
+
+#hero h1 {
+	font-size: 3rem;
+	font-weight: 700;
+	font-family: 'Ubuntu', sans-serif;
+	color: var(--clr-texture-btn);
+	margin-bottom: 0.8rem;
+}
+
+#hero p {
+	font-size: 1.2rem;
+	font-weight: 300;
+	color: var(--clr-text-secondary);
+	margin-bottom: 0.8rem;
+}
+
+#btn-box {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.btn {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(--clr-text-primary);
+	text-transform: uppercase;
+	border: 1px solid var(--clr-texture-btn);
+	padding: 0.7rem 3rem;
+	background-color: var(--clr-texture-btn);
+	transition: 0.1s;
+	width: 200px;
+}
+
+.btn:hover {
+	background-color: var(--clr-texture-btn-hover);
+}
+
 @media screen and (max-width: 768px) {
 	.container {
 		padding: 0 2rem;
@@ -121,5 +181,16 @@ header {
 
 	.nav-link:hover {
 		border-bottom: 1px solid transparent;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	#btn-box {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.btn {
+		width: 100%;
 	}
 }

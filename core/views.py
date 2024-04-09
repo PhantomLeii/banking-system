@@ -20,12 +20,13 @@ class LoginView(TemplateView):
         return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        form = LoginForm(request, request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request, email=email, password=password)
             if user:
+                error_message = None
                 login(request, user)
                 redirect('home')
             else:

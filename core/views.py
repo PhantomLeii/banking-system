@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login
 from django.views.generic import TemplateView
 from .forms import LoginForm
-from .models import Account, Transaction
+from .models import User, Account, Transaction
 
 
 class HomePageView(TemplateView):
     template_name = 'routes/index.html'
 
     def get(self, request):
-        return render(request, self.template_name, {})
+        try:
+            user = get_user_model().objects.get(email=request.user)
+            error = None
+        except User.DoesNotExist:
+            error = 'User not found'
+        return render(request, self.template_name, {'user': user, 'error': error})
 
 
 class LoginView(TemplateView):

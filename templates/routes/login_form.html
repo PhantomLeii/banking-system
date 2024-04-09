@@ -2,13 +2,14 @@
 
 {% block content %}
 <main>
-    <form action="{% url "login" %}">
+    <form action="{% url "login" %}" method='post'>
         {% if error_message %}
         <p class="error">{{ error_message }}</p>
         {% endif %}
         
         {% csrf_token %}
-        {% form.as_p %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
     </form>
 </main>
 {% endblock content %}

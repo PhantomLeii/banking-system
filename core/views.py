@@ -16,7 +16,8 @@ class LoginView(TemplateView):
     template_name = 'routes/login_form.html'
 
     def get(self, request):
-        return render(request, self.template_name, {})
+        form = LoginForm()
+        return render(request, self.template_name, {'form': form})
     
     def post(self, request):
         form = LoginForm(request, request.POST)

@@ -3,6 +3,10 @@
 {% block content %}
 <main>
     <form action="{% url "login" %}">
+        {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+        {% endif %}
+        
         {% csrf_token %}
         {% form.as_p %}
     </form>

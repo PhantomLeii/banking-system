@@ -9,12 +9,7 @@ class HomePageView(TemplateView):
     template_name = 'routes/index.html'
 
     def get(self, request):
-        try:
-            user = get_user_model().objects.get(email=request.user)
-            error = None
-        except User.DoesNotExist:
-            error = 'User not found'
-        return render(request, self.template_name, {'user': user, 'error': error})
+       return render(request, self.template_name, {})
 
 
 class LoginView(TemplateView):
@@ -33,7 +28,7 @@ class LoginView(TemplateView):
             if user:
                 error_message = None
                 login(request, user)
-                redirect('home')
+                return redirect('home')
             else:
                 error_message = 'Invalid email or password'
         else:

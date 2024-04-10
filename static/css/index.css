@@ -101,7 +101,9 @@ header {
 }
 
 main {
-	height: auto;
+	position: relative;
+	top: 3.5rem;
+	height: fit-content;
 }
 
 #hero {
@@ -198,6 +200,7 @@ form input {
 	height: 1.3rem;
 	color: var(--clr-text-secondary);
 	text-align: center;
+	display: block;
 }
 
 form button {

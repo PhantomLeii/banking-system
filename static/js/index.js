@@ -11,3 +11,9 @@ menuIcon.addEventListener('click', () => {
 		menuIcon.classList.replace('bx-menu', 'bx-x');
 	}
 });
+
+// window.addEventListener('click', (event) => {
+// 	if (event.target)
+// });
+
+// Fix sidebar toggle on clicking off menu

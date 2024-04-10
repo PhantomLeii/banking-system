@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.views.generic import TemplateView
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 from .models import User, Account, Transaction
 
 
@@ -47,3 +47,22 @@ class LogoutView(TemplateView):
     def post(self, request):
         logout(request)
         return redirect('home')
+
+
+class RegisterView(TemplateView):
+    template_name = 'routes/register.html'
+
+    def get(self, request):
+        form = RegisterForm()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            error_message = None
+            form.save()
+            return redirect('login')
+        else:
+            error_message = 'Invalid form data'
+        context = {'form': form, 'error_message': error_message}
+        return render(request, self.template_name, context)

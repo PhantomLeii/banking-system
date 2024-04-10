@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %} {% if user.is_authenticated %}
 <main>
 	<section id="hero" class="container">
-		<h1>Your are logged in as {{ name }}</h1>
+		<h1>Your are logged in as {{ request.user.name }}</h1>
 	</section>
 </main>
 {% else %}
@@ -16,7 +16,7 @@
 			</p>
 			<div id="btn-box">
 				<a href="{% url "login" %}" class="btn">Login</a>
-				<a href="" class="btn">Register</a>
+				<a href="{% url "register" %}" class="btn">Register</a>
 			</div>
 		</div>
 	</section>

@@ -103,7 +103,10 @@ header {
 main {
 	position: relative;
 	top: 3.5rem;
-	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem 0;
 }
 
 #hero {
@@ -160,13 +163,6 @@ main {
 
 .btn:hover {
 	background-color: var(--clr-texture-btn-hover);
-}
-
-#login {
-	height: calc(100vh - 3.5rem);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 form {

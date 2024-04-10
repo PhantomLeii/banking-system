@@ -72,6 +72,10 @@ header {
 	transition: 0.45s;
 }
 
+#menu:nth-last-child() {
+	color: var(--clr-texture-btn);
+}
+
 .nav-link:hover,
 .active {
 	color: var(--clr-text-secondary);

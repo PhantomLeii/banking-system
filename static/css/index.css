@@ -175,6 +175,7 @@ form {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	max-width: 100%;
 }
 
 form p {
@@ -204,6 +205,7 @@ form button {
 	border: none;
 	padding: 0.5rem 2rem;
 	width: 100%;
+	max-width: 200px;
 	text-transform: uppercase;
 	color: var(--clr-text-secondary);
 	font-weight: 600;

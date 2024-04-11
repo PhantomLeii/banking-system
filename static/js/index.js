@@ -12,8 +12,8 @@ menuIcon.addEventListener('click', () => {
 	}
 });
 
-// window.addEventListener('click', (event) => {
-// 	if (event.target)
-// });
-
-// Fix sidebar toggle on clicking off menu
+window.addEventListener('click', (event) => {
+	if (event.target !== menu && !menu.contains(event.target)) {
+		menu.classList.remove('open');
+	}
+});

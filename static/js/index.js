@@ -11,9 +11,3 @@ menuIcon.addEventListener('click', () => {
 		menuIcon.classList.replace('bx-menu', 'bx-x');
 	}
 });
-
-window.addEventListener('click', (event) => {
-	if (event.target !== menu && !menu.contains(event.target)) {
-		menu.classList.remove('open');
-	}
-});

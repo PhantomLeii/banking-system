@@ -11,3 +11,14 @@ menuIcon.addEventListener('click', () => {
 		menuIcon.classList.replace('bx-menu', 'bx-x');
 	}
 });
+
+const navbar = document.getElementById('navbar');
+const postion = navbar.offsetTop;
+
+window.addEventListener('scroll', () => {
+	if (window.scrollY > postion) {
+		navbar.classList.add('sticky');
+	} else {
+		navbar.classList.remove('sticky');
+	}
+});

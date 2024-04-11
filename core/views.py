@@ -66,3 +66,11 @@ class RegisterView(TemplateView):
             error_message = 'Invalid form data'
         context = {'form': form, 'error_message': error_message}
         return render(request, self.template_name, context)
+
+
+class AccountsView(TemplateView):
+    template_name = 'routes/accounts.html'
+
+    def get(self, request):
+        accounts = Account.objects.filter(user=request.user)
+        return render(request, self.template_name, {'accounts': accounts})

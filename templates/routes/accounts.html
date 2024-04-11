@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<main class='container'>
+	<div id="accounts">
+		{% if accounts %} {% for account in accounts %}
+		<div class="card">
+			<h2>{{ account.name }}: {{ account.account_type }}</h2>
+			<p class="number">Account Number: <span>{{ account.number }}</span></p>
+			<h1 class="balance">Current balance: {{ account.balance }}</h1>
+		</div>
+		{% endfor %} {% else %}
+		<div class="card">
+			<p class="info">You have no open accounts.</p>
+		</div>
+		{% endif %}
+	</div>
+	<div class="btn-box">
+		<a href="{% url "accounts" %}" class='btn'>Create Account</a>
+		<a href="{% url "accounts" %}" class='btn'>Delete Account</a>
+	</div>
+</main>
+{% endblock content %}

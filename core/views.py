@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, CreateAccountForm
 from .models import User, Account, Transaction
 
 
@@ -74,3 +75,30 @@ class AccountsView(TemplateView):
     def get(self, request):
         accounts = Account.objects.filter(user=request.user)
         return render(request, self.template_name, {'accounts': accounts})
+
+
+class CreateAccountView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/create_account.html'
+
+    def get(self, request):
+        form = CreateAccountForm()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = CreateAccountForm(request.POST)
+        if form.is_valid():
+            error_message = None
+            name = form.cleaned_data['name']
+            account_type = form.cleaned_data['account_type']
+
+            account = Account.objects.create(
+                user=request.user,
+                name=name,
+                account_type=account_type
+            )
+            account.save()
+            return redirect('accounts')
+        else:
+            error_message = 'Invalid form data'
+        context = {'form': form, 'error_message': error_message}
+        return render(request, self.template_name, context)

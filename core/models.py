@@ -52,20 +52,22 @@ class Account(models.Model):
         ('current', 'Current'),
         ('savings', 'Savings'),
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    account_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='current')
     name = models.CharField(max_length=255)
     number = models.CharField(max_length=12, unique=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
     date_created = models.DateTimeField(auto_now_add=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+    REQUIRED_FIELDS = ('name', 'account_type')
 
     def __str__(self):
         return f'{self.name} | {self.number}'
 
 
 class Transaction(models.Model):
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     transaction = models.ForeignKey('self', on_delete=models.CASCADE, related_name='related_transactions', null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

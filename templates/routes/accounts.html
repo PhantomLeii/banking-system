@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<main class='container'>
+<main class="container">
 	<div id="accounts">
 		{% if accounts %} {% for account in accounts %}
 		<div class="card">
@@ -14,8 +14,8 @@
 		{% endif %}
 	</div>
 	<div class="btn-box">
-		<a href="{% url "accounts" %}" class='btn'>Create Account</a>
-		<a href="{% url "accounts" %}" class='btn'>Delete Account</a>
+		<a href="{% url "create-account" %}" class="btn">Create Account</a>
+		<a href="" class="btn">Delete Account</a>
 	</div>
 </main>
 {% endblock content %}

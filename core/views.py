@@ -100,3 +100,16 @@ class CreateAccountView(LoginRequiredMixin, TemplateView):
         else:
             pass
         return render(request, self.template_name, {'form': form})
+
+
+class AccountDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/account_detail.html'
+
+    def get(self, request, pk):
+        account = Account.objects.get(id=pk)
+        if account:
+            transactions = Transaction.objects.filter(account=account)
+        else:
+            return redirect('not_found.html')
+        context = {'account': account, 'transactions': transactions}
+        return render(request, self.template_name, context)

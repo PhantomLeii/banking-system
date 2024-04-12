@@ -1,7 +1,16 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
 	<div id="account">
-		<div class="transactions"></div>
+		<div class="transactions">
+			{% if transactions %}
+			<div class="card">
+				<div>
+					<h2>ID</h2>
+					<h3></h3>
+				</div>
+			</div>
+			{% endif %}
+		</div>
 		<div class="banner">
 			<h1>R {{ account.balance }}</h1>
 			<p class="info label">Balance</p>
@@ -16,12 +25,11 @@
 				<h2>{{ account.number }}</h2>
 			</div>
 			<div class="card">
-				<h2>
-					Account Status
-				</h2>
+				<h2>Account Status</h2>
 				<h2
-					class="{% if account.status != "active" %}error_message{% else %}message{% endif %}"
-				>{{ account.status }}
+					class="{% if account.status != 'active' %}error_message{% else %}message{% endif %}"
+				>
+					{{ account.status }}
 				</h2>
 			</div>
 			<div class="card">

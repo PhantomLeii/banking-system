@@ -70,7 +70,7 @@ class RegisterView(TemplateView):
         return render(request, self.template_name, context)
 
 
-class AccountsView(TemplateView):
+class AccountsView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/accounts.html'
 
     def get(self, request):
@@ -108,7 +108,7 @@ class AccountDetailView(LoginRequiredMixin, TemplateView):
     def get(self, request, pk):
         account = Account.objects.get(id=pk)
         if account:
-            transactions = Transaction.objects.filter(account=account)
+            transactions = Transaction.objects.filter(account=account).order_by('-timestamp')[:50]
         else:
             return redirect('not_found.html')
         context = {'account': account, 'transactions': transactions}

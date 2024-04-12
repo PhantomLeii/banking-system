@@ -256,6 +256,12 @@ form button:hover {
 	border: 1px solid var(--clr-secondary-bg);
 }
 
+.balance {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .card {
 	background-color: var(--clr-secondary-bg);
 	padding: 1rem;
@@ -352,5 +358,9 @@ form button:hover {
 
 	.btn {
 		width: 100%;
+	}
+
+	.balance .label {
+		display: none;
 	}
 }

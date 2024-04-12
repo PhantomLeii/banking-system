@@ -6,9 +6,9 @@
 			<div class="card">
 				<h2>{{ account.name.upper }}</h2>
 				<h3>ACC: {{ account.number }}</h3>
-				<p class="balance">
-					Current balance:<span>R {{ account.balance }}</span>
-				</p>
+				<div class="balance">
+					<p class='label'>Current balance:</p><p><span>R {{ account.balance }}</span></p>
+				</div>
 			</div>
 		</a>
 		{% endfor %} {% else %}

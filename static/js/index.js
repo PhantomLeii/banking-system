@@ -12,6 +12,7 @@ menuIcon.addEventListener('click', () => {
 	}
 });
 
+// Add box-shadow on scroll
 const navbar = document.getElementById('navbar');
 const postion = navbar.offsetTop;
 

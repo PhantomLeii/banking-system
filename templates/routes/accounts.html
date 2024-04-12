@@ -4,9 +4,11 @@
 		{% if accounts %} {% for account in accounts %}
 		<a href="{% url "account-detail" pk=account.id %}">
 			<div class="card">
-				<h2>{{ account.name }}: {{ account.account_type }}</h2>
-				<p class="number">Account Number: <span>{{ account.number }}</span></p>
-				<h1 class="balance">Current balance: {{ account.balance }}</h1>
+				<h2>{{ account.name.upper }}</h2>
+				<h3>ACC: {{ account.number }}</h3>
+				<p class="balance">
+					Current balance:<span><span>R</span> {{ account.balance }}</span>
+				</p>
 			</div>
 		</a>
 		{% endfor %} {% else %}
@@ -15,7 +17,7 @@
 		</div>
 		{% endif %}
 	</div>
-	<div class="btn-box">
+	<div class="accounts btn-box">
 		<a href="{% url "create-account" %}" class="btn">Create Account</a>
 	</div>
 </main>

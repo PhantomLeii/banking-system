@@ -23,3 +23,10 @@ window.addEventListener('scroll', () => {
 		navbar.classList.remove('sticky');
 	}
 });
+
+// Swap currency '.' with ','
+const balances = document.querySelectorAll('.balance span');
+
+balances.forEach((balance) => {
+	balance.textContent = balance.textContent.replace('.', ',');
+});

@@ -287,10 +287,6 @@ form button:hover {
 	color: var(--clr-text-secondary);
 }
 
-.card p span span {
-	color: var(--clr-texture-btn-hover);
-}
-
 .accounts.btn-box {
 	position: relative;
 	bottom: 0;

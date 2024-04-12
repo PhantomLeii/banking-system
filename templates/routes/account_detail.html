@@ -1,11 +1,13 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
-	<div class="transactions"></div>
-	<div class="banner">
-		<h3>{{ account.name }}</h3>
-		<p>{{ account.account_type }}</p>
-		<h1>R {{ account.balance }}</h1>
+	<div id="account">
+		<div class="transactions"></div>
+		<div class="banner">
+			<h3>{{ account.name }}</h3>
+			<p>{{ account.account_type }}</p>
+			<h1>R {{ account.balance }}</h1>
+		</div>
+		<div class="utils"></div>
 	</div>
-	<div class="utils"></div>
 </main>
 {% endblock content %}

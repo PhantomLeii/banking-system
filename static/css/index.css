@@ -332,6 +332,10 @@ form button:hover {
 	gap: 1rem;
 }
 
+.hidden {
+	display: none;
+}
+
 .banner {
 	border: 1px solid var(--clr-secondary-bg);
 	padding: 1rem;

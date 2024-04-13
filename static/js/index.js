@@ -30,3 +30,16 @@ const balances = document.querySelectorAll('.balance span');
 balances.forEach((balance) => {
 	balance.textContent = balance.textContent.replace('.', ',');
 });
+
+// Display transaction colum only when transactions are available
+// for rendering
+const transactionsColumn = document.querySelector('.transactions');
+
+window.addEventListener('DOMContentLoaded', () => {
+	const transactionItemCount = transactionsColumn.children.length;
+	if (transactionItemCount < 2) {
+		transactionsColumn.classList.add('hidden');
+	} else {
+		transactionsColumn.classList.remove('hidden');
+	}
+});

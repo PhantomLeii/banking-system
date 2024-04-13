@@ -5,9 +5,16 @@
 			{% if transactions %}
 			<div class="card">
 				<div>
-					<h2>ID</h2>
-					<h3></h3>
+					<h2>Ref:</h2>
+					<h3>{{ transaction.reference }}</h3>
 				</div>
+				<div>
+					<h2>R <span>{{ transaction.amount }}</span></h2>
+				</div>
+			</div>
+			{% else %}
+			<div class="card">
+				<h3 class="info">You have not transactions</h3>
 			</div>
 			{% endif %}
 		</div>

@@ -115,17 +115,26 @@ class AccountDetailView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
-class DeleteAccountView(TemplateView):
+class DeleteAccountView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/delete_account_form.html'
 
-    def get(self, request, pk):
-        return render(request, self.template_engine, {})
+    def get_user_accounts(self, user):
+        accounts = Account.objects.filter(user=user)
+        return accounts
 
-    def delete(self, request, pk):
+    def get(self, request, pk):
+        return render(request, self.template_name, {})
+
+    def post(self, request, pk):
+        accounts = self.get_user_accounts(request.user)
         try:
             account = Account.objects.get(id=pk)
+            if account not in accounts:
+                raise Account.DoesNotExist
+            account.delete()
+            return redirect('accounts')
+            
         except Account.DoesNotExist:
-            # Return redirect('Account not found')
+            # return redirect('Account not found')
             pass
-        account.delete()
-        return redirect('accounts')
+        return render(request, self.template_name, {'account': account})

@@ -113,3 +113,19 @@ class AccountDetailView(LoginRequiredMixin, TemplateView):
             return redirect('not_found.html')
         context = {'account': account, 'transactions': transactions}
         return render(request, self.template_name, context)
+
+
+class DeleteAccountView(TemplateView):
+    template_name = 'routes/delete_account_form.html'
+
+    def get(self, request, pk):
+        return render(request, self.template_engine, {})
+
+    def delete(self, request, pk):
+        try:
+            account = Account.objects.get(id=pk)
+        except Account.DoesNotExist:
+            # Return redirect('Account not found')
+            pass
+        account.delete()
+        return redirect('accounts')

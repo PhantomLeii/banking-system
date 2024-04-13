@@ -178,6 +178,18 @@ main {
 	background-color: var(--clr-texture-btn-hover);
 }
 
+.delete {
+	border: 2px solid red;
+	color: red;
+	background-color: transparent;
+	transition: 0.45s;
+}
+
+.delete:hover {
+	color: var(--clr-text-primary);
+	background-color: red;
+}
+
 form {
 	border: 1px solid var(--clr-secondary-bg);
 	padding: 1rem 3rem;
@@ -318,7 +330,7 @@ form button:hover {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 3fr;
-	grid-template-rows: 1fr 3fr;
+	grid-template-rows: 1fr auto;
 	gap: 2rem;
 }
 

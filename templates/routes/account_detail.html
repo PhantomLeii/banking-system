@@ -44,6 +44,9 @@
 				<h2>{{ account.date_created }}</h2>
 			</div>
 		</div>
+		<div class="btn-box">
+			<a href="{% url "delete-account-form" account.id %}" class='btn delete'>Delete Account</a>
+		</div>
 	</div>
 </main>
 {% endblock content %}

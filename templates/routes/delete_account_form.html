@@ -3,6 +3,7 @@
 {% block content %}
 <main class="container">
     <form action="{% url "delete-account" account.id %}" method="post">
+        {% csrf_token %}
         <p>
             <label for="delete-account">Are you sure you want to delete this account?</label>
         </p>

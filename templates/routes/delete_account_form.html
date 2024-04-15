@@ -2,6 +2,12 @@
 
 {% block content %}
 <main class="container">
-    <form action="{% url "delete-account" account.id %}" method="post"></form>
+    <form action="{% url "delete-account" account.id %}" method="post">
+        <p>
+            <label for="delete-account">Are you sure you want to delete this account?</label>
+        </p>
+        <button type="submit">Delete</button>
+        <a href="{% url "accounts" %}" class='alt-link'>Cancel</a>
+    </form>
 </main>
 {% endblock content %}

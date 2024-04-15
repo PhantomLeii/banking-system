@@ -117,9 +117,12 @@ main {
 	gap: 1rem;
 	justify-content: center;
 	align-items: center;
-	margin: 1rem 0;
-	height: auto;
 	padding: 1rem 0;
+	height: 100%;
+}
+
+main > section {
+	height: 100%;
 }
 
 #hero {

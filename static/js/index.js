@@ -37,7 +37,7 @@ const transactionsColumn = document.querySelector('.transactions');
 
 window.addEventListener('DOMContentLoaded', () => {
 	const transactionItemCount = transactionsColumn.children.length;
-	if (transactionItemCount < 2) {
+	if (transactionItemCount < 1) {
 		transactionsColumn.classList.add('hidden');
 	} else {
 		transactionsColumn.classList.remove('hidden');

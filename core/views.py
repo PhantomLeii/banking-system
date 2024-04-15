@@ -14,9 +14,22 @@ def not_found(request):
 class HomePageView(TemplateView):
     template_name = 'routes/index.html'
 
+    @staticmethod
+    def __get_user_accounts(user):
+        accounts = Account.objects.filter(user=user)
+        return accounts
+    
     def get(self, request):
-       return render(request, self.template_name, {})
+        accounts = self.__get_user_accounts(user=request.user)
+        total_balance = sum([i.balance for i in accounts])
 
+        all_transactions = []
+        for account in accounts:
+            account_transactions = Transaction.objects.filter(account=account)
+            all_transactions.extend(account_transactions)
+        
+        sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp)
+        return render(request, self.template_name, {'balance': total_balance, 'transactions': sorted_transactions})
 
 class LoginView(TemplateView):
     template_name = 'routes/login_form.html'

@@ -1,7 +1,41 @@
 {% extends "base.html" %} {% block content %} {% if user.is_authenticated %}
 <main>
-	<section id="hero" class="container">
-		
+	<section id="dashboard" class="container">
+		<div class="banner">
+			<h1>R {{ balance }}</h1>
+			<p class='info'>Available balance</p>
+		</div>
+		<div class="detail">
+			<div class="card">
+				<a href=""><p>Withdraw</p></a>
+			</div>
+			<div class="card">
+				<a href=""><p>Deposit</p></a>
+			</div>
+			<div class="card">
+				<a href=""><p>Pay</p></a>
+			</div>
+			<div class="card">
+				<a href=""><p>Edit Profile</p></a>
+			</div>
+		</div>
+		<div class="transactions">
+			{% if transactions %}
+			{% for transaction in transactions %}
+			<div class="card">
+				<div class="transaction-parent">
+					<h3>From:</h3>
+					<p>{{ transaction.account.number }}</p>
+				</div>
+				<div class="transaction-data">
+					<h3>Reference:</h3>
+					<p>{{ transaction.reference }}</p>
+				</div>
+				<div class="amount"><p>{{ transaction.amount }}</p></div>
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
 	</section>
 </main>
 {% else %}

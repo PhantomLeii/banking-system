@@ -7,11 +7,13 @@ from .forms import LoginForm, RegisterForm, CreateAccountForm
 from .models import User, Account, Transaction
 
 
+def index(request):
+    return render(request, 'routes/index.html', {})
+
 def not_found(request):
     return render(request, 'routes/account_not_found.html', {})
 
-
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/index.html'
 
     @staticmethod
@@ -29,7 +31,8 @@ class HomePageView(TemplateView):
             all_transactions.extend(account_transactions)
         
         sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp)
-        return render(request, self.template_name, {'balance': total_balance, 'transactions': sorted_transactions})
+        context = {'balance': total_balance, 'transactions': sorted_transactions}
+        return render(request, self.template_name, context=context)
 
 class LoginView(TemplateView):
     template_name = 'routes/login_form.html'

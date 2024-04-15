@@ -9,10 +9,12 @@ from .views import (
     AccountDetailView,
     DeleteAccountView,
     not_found,
+    index,
 )
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
+    path('', index, name='index'),
+    path('home/', HomePageView.as_view(), name='home'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/',RegisterView.as_view(), name='register'),

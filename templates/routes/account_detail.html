@@ -12,10 +12,6 @@
 					<h2>R <span>{{ transaction.amount }}</span></h2>
 				</div>
 			</div>
-			{% else %}
-			<div class="card">
-				<h3 class="info">You have not transactions</h3>
-			</div>
 			{% endif %}
 		</div>
 		<div class="banner">
@@ -25,23 +21,23 @@
 		<div class="detail">
 			<div class="card">
 				<h2>Account Name</h2>
-				<h2>{{ account.name }}</h2>
+				<p>{{ account.name }}</p>
 			</div>
 			<div class="card">
 				<h2>Account Number</h2>
-				<h2>{{ account.number }}</h2>
+				<p>{{ account.number }}</p>
 			</div>
 			<div class="card">
 				<h2>Account Status</h2>
-				<h2
+				<p
 					class="{% if account.status != 'active' %}error_message{% else %}message{% endif %}"
 				>
 					{{ account.status }}
-				</h2>
+				</p>
 			</div>
 			<div class="card">
 				<h2>Created</h2>
-				<h2>{{ account.date_created }}</h2>
+				<p>{{ account.date_created|date:"M Y, d" }}</p>
 			</div>
 		</div>
 		<div class="btn-box">

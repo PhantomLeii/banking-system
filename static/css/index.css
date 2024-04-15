@@ -388,6 +388,20 @@ form ul {
 	gap: 1rem;
 }
 
+.detail .card {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.detail .card h2 {
+	font-weight: 600;
+}
+
+.detail .card p {
+	font-weight: 300;
+}
+
 @media screen and (max-width: 768px) {
 	.container {
 		padding: 0 2rem;
@@ -433,6 +447,12 @@ form ul {
 		flex-direction: column;
 		gap: 1rem;
 	}
+
+	#account {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
 }
 
 @media screen and (max-width: 480px) {
@@ -447,5 +467,9 @@ form ul {
 
 	.balance .label {
 		display: none;
+	}
+
+	.detail .card {
+		flex-direction: column;
 	}
 }

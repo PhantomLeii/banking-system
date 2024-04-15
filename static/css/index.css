@@ -118,7 +118,8 @@ main {
 	justify-content: center;
 	align-items: center;
 	margin: 1rem 0;
-	height: calc(100vh - 3.5rem);
+	height: auto;
+	padding: 1rem 0;
 }
 
 #hero {
@@ -242,6 +243,15 @@ form button {
 
 form button:hover {
 	background-color: var(--clr-texture-btn-hover);
+}
+
+form ul {
+	list-style: none;
+	color: var(--clr-secondary-bg);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
 }
 
 .alt-link {

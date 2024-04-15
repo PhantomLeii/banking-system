@@ -7,6 +7,10 @@ from .forms import LoginForm, RegisterForm, CreateAccountForm
 from .models import User, Account, Transaction
 
 
+def not_found(request):
+    return render(request, 'routes/account_not_found.html', {})
+
+
 class HomePageView(TemplateView):
     template_name = 'routes/index.html'
 

@@ -456,11 +456,6 @@ form ul {
 	font-size: 1rem;
 }
 
-#dashboard .transactions .card:last-child {
-	width: 100%;
-	text-align: end;
-}
-
 @media screen and (max-width: 768px) {
 	.container {
 		padding: 0 2rem;
@@ -549,5 +544,10 @@ form ul {
 
 	#dashboard .banner p {
 		display: none;
+	}
+
+	#dashboard .transactions .card p,
+	#dashboard .transactions .card h3 {
+		text-align: center;
 	}
 }

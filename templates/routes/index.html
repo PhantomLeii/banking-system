@@ -23,6 +23,7 @@
 			{% if transactions %}
 			{% for transaction in transactions %}
 			<div class="card">
+				<p class="info">{{ transaction.timestamp|date:"M Y, d @ H:i" }}</p>
 				<div class="transaction-parent">
 					<h3>From:</h3>
 					<p>{{ transaction.account.number }}</p>

@@ -8,10 +8,12 @@ from .models import User, Account, Transaction
 
 
 def index(request):
-    return render(request, 'routes/index.html', {})
+    template = 'routes/index.html'
+    return render(request, template, {})
 
 def not_found(request):
-    return render(request, 'routes/account_not_found.html', {})
+    template = 'routes/account_not_found.html'
+    return render(request, template, {})
 
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/index.html'

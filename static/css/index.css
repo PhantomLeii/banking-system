@@ -412,8 +412,7 @@ form ul {
 #dashboard {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 3fr;
-	height: 100%;
+	grid-template-rows: 1fr auto;
 	width: 100%;
 	gap: 2rem;
 }
@@ -429,7 +428,7 @@ form ul {
 }
 
 #dashboard .transactions {
-	max-height: 18.85rem;
+	/* max-height: 18.85rem; */
 	overflow-y: scroll;
 }
 

@@ -32,7 +32,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             account_transactions = Transaction.objects.filter(account=account)
             all_transactions.extend(account_transactions)
         
-        sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp)
+        sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp, reverse=True)
         context = {'balance': total_balance, 'transactions': sorted_transactions}
         return render(request, self.template_name, context=context)
 

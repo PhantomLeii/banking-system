@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import LoginForm, RegisterForm, CreateAccountForm
+from .forms import LoginForm, RegisterForm, CreateAccountForm, WithdrawForm
 from .models import User, Account, Transaction
 
 
@@ -160,3 +160,25 @@ class DeleteAccountView(LoginRequiredMixin, TemplateView):
         account = self.__get_account(request.user, pk)
         account.delete()
         return redirect('accounts')
+
+
+class WithdrawView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/withdraw_form.html'
+
+    @staticmethod
+    def __get_user_account(user, pk):
+        accounts = Account.objects.filter(user=user)
+        try:
+            account = [i for i in accounts if i.id == pk][0]
+        except IndexError:
+            return None
+        return account
+
+    def get(self, request):
+        accounts = Account.objects.filter(user=request.user)
+        form = WithdrawForm()
+        form.ACCOUNTS = accounts
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, pk):
+        pass

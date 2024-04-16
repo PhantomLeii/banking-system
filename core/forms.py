@@ -17,3 +17,10 @@ class RegisterForm(UserCreationForm):
 class CreateAccountForm(forms.Form):
     name = forms.CharField(max_length=255)
     account_type = forms.ChoiceField(choices=Account.TYPE_CHOICES)
+
+
+class WithdrawForm(forms.Form):
+    ACCOUNTS:list|tuple|None = None
+
+    acccount = forms.ChoiceField(choices=ACCOUNTS)
+    amount = forms.DecimalField(max_digits=10, decimal_places=2)

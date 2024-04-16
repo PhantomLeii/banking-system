@@ -8,6 +8,8 @@ from .views import (
     CreateAccountView,
     AccountDetailView,
     DeleteAccountView,
+    WithdrawView,
+    
     not_found,
     index,
 )
@@ -24,4 +26,5 @@ urlpatterns = [
     path('delete-account/<int:pk>/', DeleteAccountView.as_view(), name='delete-account-form'),
     path('delete-account/<int:pk>/', DeleteAccountView.as_view(), name='delete-account'),
     path('not-found/', not_found, name='not-found'),
+    path('withdraw/', WithdrawView.as_view(), name='withdraw'),
 ]

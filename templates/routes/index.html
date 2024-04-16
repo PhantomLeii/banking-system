@@ -6,18 +6,26 @@
 			<p class='info'>Available balance</p>
 		</div>
 		<div class="detail">
-			<div class="card">
-				<a href=""><p>Withdraw</p></a>
-			</div>
-			<div class="card">
-				<a href=""><p>Deposit</p></a>
-			</div>
-			<div class="card">
-				<a href=""><p>Pay</p></a>
-			</div>
-			<div class="card">
-				<a href=""><p>Edit Profile</p></a>
-			</div>
+			<a href="{% url "withdraw" %}">
+				<div class="card">
+					<p>Withdraw</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="card">
+					<p>Deposit</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="card">
+					<p>Pay</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="card">
+					<p>Edit Profile</p>
+				</div>
+			</a>
 		</div>
 		<div class="transactions">
 			{% if transactions %}

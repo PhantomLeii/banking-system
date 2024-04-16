@@ -1,22 +1,25 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
 	<div id="account">
-		<div class="transactions">
-			{% if transactions %}
-			<div class="card">
-				<div>
-					<h2>Ref:</h2>
-					<h3>{{ transaction.reference }}</h3>
-				</div>
-				<div>
-					<h2>R <span>{{ transaction.amount }}</span></h2>
-				</div>
-			</div>
-			{% endif %}
-		</div>
 		<div class="banner">
 			<h1>R {{ account.balance }}</h1>
 			<p class="info label">Balance</p>
+		</div>
+		<div class="transactions">
+			{% if transactions %}
+			{% for transaction in transactions %}
+			<a href="">
+				<div class="card">
+					<p class="info">{{ transaction.timestamp|date:"M Y, d @ H:i:s" }}</p>
+					<div class="transaction-data">
+						<h3>Reference:</h3>
+						<p>{{ transaction.reference }}</p>
+					</div>
+					<p>R {{ transaction.amount }}</p>
+				</div>
+			</a>
+			{% endfor %}
+			{% endif %}
 		</div>
 		<div class="detail">
 			<div class="card">

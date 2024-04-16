@@ -70,7 +70,7 @@ class LogoutView(TemplateView):
     
     def post(self, request):
         logout(request)
-        return redirect('home')
+        return redirect('index')
 
 
 class RegisterView(TemplateView):

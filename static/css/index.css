@@ -356,6 +356,10 @@ form ul {
 	overflow-y: scroll;
 }
 
+#account .transactions {
+	grid-column: span 2;
+}
+
 .hidden {
 	display: none;
 }
@@ -365,6 +369,7 @@ form ul {
 	padding: 1rem;
 	display: grid;
 	place-content: center;
+	grid-column: span 2;
 }
 
 .banner h1 {
@@ -418,8 +423,13 @@ form ul {
 	grid-column: span 2;
 }
 
+#dashboard .detail {
+	justify-content: start;
+	height: fit-content;
+}
+
 #dashboard .transactions {
-	grid-column: span 2;
+	max-height: 18.85rem;
 	overflow-y: scroll;
 }
 

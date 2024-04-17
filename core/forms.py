@@ -29,7 +29,7 @@ class WithdrawForm(forms.Form):
     
     def get_account_choices(self, user):
         all_accounts = Account.objects.filter(user=user)
-        choices = [(account.id, account.name.upper()) for account in all_accounts]
+        choices = [(account.id, account.name.upper()) for account in all_accounts if account.balance > 0]
         return choices
     
     account = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class': 'form-control'}))

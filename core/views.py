@@ -207,3 +207,27 @@ class DepositView(LoginRequiredMixin, TemplateView):
     def get(self, request):
         form = DepositForm(request.user)
         return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = DepositForm(request.user, request.POST)
+        if form.is_valid():
+            error = None
+            account_id = form.cleaned_data['account']
+            amount = form.cleaned_data['amount']
+
+            account = Account.objects.get(id=account_id)
+
+            account.balance += amount
+            transaction = Transaction.objects.create(
+                account=account,
+                amount=amount,
+                reference="CASH DEPOSIT"
+            )
+
+            account.save()
+            transaction.save()
+            return redirect('home')
+        else:
+            error = 'Invalid form data'
+        
+        return render(request, self.template_name, {'form': form, 'error': error})

@@ -343,7 +343,7 @@ form ul {
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: 1fr auto;
+	grid-template-rows: 1fr 18.85rem;
 	gap: 2rem;
 }
 
@@ -412,7 +412,7 @@ form ul {
 #dashboard {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr auto;
+	grid-template-rows: 1fr 18.85rem;
 	width: 100%;
 	gap: 2rem;
 }

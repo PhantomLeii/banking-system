@@ -9,6 +9,7 @@ from .views import (
     AccountDetailView,
     DeleteAccountView,
     WithdrawView,
+    DepositView,
     
     not_found,
     index,
@@ -27,4 +28,5 @@ urlpatterns = [
     path('delete-account/<int:pk>/', DeleteAccountView.as_view(), name='delete-account'),
     path('not-found/', not_found, name='not-found'),
     path('withdraw/', WithdrawView.as_view(), name='withdraw'),
+    path('deposit/', DepositView.as_view(), name='deposit'),
 ]

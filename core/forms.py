@@ -22,15 +22,26 @@ class CreateAccountForm(forms.Form):
     account_type = forms.ChoiceField(choices=Account.TYPE_CHOICES)
 
 
-class WithdrawForm(forms.Form):
+class AccountForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
-        super(WithdrawForm, self).__init__(*args, **kwargs)
+        super(AccountForm, self).__init__(*args, **kwargs)
         self.fields['account'].choices = self.get_account_choices(user)
     
     def get_account_choices(self, user):
         all_accounts = Account.objects.filter(user=user)
-        choices = [(account.id, account.name.upper()) for account in all_accounts if account.balance > 0]
+        choices = [(account.id, account.name) for account in all_accounts]
         return choices
     
     account = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class': 'form-control'}))
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
+
+
+class WithdrawForm(AccountForm):
+    def get_account_choices(self, user):
+        all_accounts = Account.objects.filter(user=user)
+        choices = [(account.id, account.name.upper()) for account in all_accounts if account.balance > 0]
+        return choices
+
+
+class DepositForm(AccountForm):
+    pass

@@ -3,8 +3,14 @@ from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import LoginForm, RegisterForm, CreateAccountForm, WithdrawForm
 from .models import User, Account, Transaction
+from .forms import (
+    LoginForm, 
+    RegisterForm, 
+    CreateAccountForm,
+    WithdrawForm,
+    DepositForm,
+)
 
 
 def index(request):
@@ -193,3 +199,11 @@ class WithdrawView(LoginRequiredMixin, TemplateView):
                 error = "Insufficient funds"
             
             return render(request, self.template_name, {'form': form, 'error': error})
+
+
+class DepositView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/deposit_form.html'
+
+    def get(self, request):
+        form = DepositForm(request.user)
+        return render(request, self.template_name, {'form': form})

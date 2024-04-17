@@ -1,5 +1,8 @@
+from typing import Any, Mapping
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms.renderers import BaseRenderer
+from django.forms.utils import ErrorList
 from .models import User, Account
 
 
@@ -20,7 +23,14 @@ class CreateAccountForm(forms.Form):
 
 
 class WithdrawForm(forms.Form):
-    ACCOUNTS:list|tuple|None = None
-
-    acccount = forms.ChoiceField(choices=ACCOUNTS)
+    def __init__(self, user, *args, **kwargs):
+        super(WithdrawForm, self).__init__(*args, **kwargs)
+        self.fields['account'].choices = self.get_account_choices(user)
+    
+    def get_account_choices(self, user):
+        all_accounts = Account.objects.filter(user=user)
+        choices = [(account.id, account.name.upper()) for account in all_accounts]
+        return choices
+    
+    account = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class': 'form-control'}))
     amount = forms.DecimalField(max_digits=10, decimal_places=2)

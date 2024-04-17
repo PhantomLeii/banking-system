@@ -166,19 +166,13 @@ class WithdrawView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/withdraw_form.html'
 
     @staticmethod
-    def __get_user_account(user, pk):
+    def __get_user_accounts(user):
         accounts = Account.objects.filter(user=user)
-        try:
-            account = [i for i in accounts if i.id == pk][0]
-        except IndexError:
-            return None
-        return account
+        return accounts
 
     def get(self, request):
-        accounts = Account.objects.filter(user=request.user)
-        form = WithdrawForm()
-        form.ACCOUNTS = accounts
+        form = WithdrawForm(request.user)
         return render(request, self.template_name, {'form': form})
     
-    def post(self, request, pk):
+    def post(self, request):
         pass

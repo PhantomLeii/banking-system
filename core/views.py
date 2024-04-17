@@ -10,6 +10,7 @@ from .forms import (
     CreateAccountForm,
     WithdrawForm,
     DepositForm,
+    PaymentForm,
 )
 
 
@@ -235,4 +236,10 @@ class DepositView(LoginRequiredMixin, TemplateView):
 
 class PaymentView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/payment_form.html'
-    pass
+    
+    def get(self, request):
+        form = PaymentForm()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        pass

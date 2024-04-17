@@ -231,3 +231,8 @@ class DepositView(LoginRequiredMixin, TemplateView):
             error = 'Invalid form data'
         
         return render(request, self.template_name, {'form': form, 'error': error})
+
+
+class PaymentView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/payment_form.html'
+    pass

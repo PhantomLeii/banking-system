@@ -45,3 +45,7 @@ class WithdrawForm(AccountForm):
 
 class DepositForm(AccountForm):
     pass
+
+
+class PaymentForm(AccountForm):
+    pass

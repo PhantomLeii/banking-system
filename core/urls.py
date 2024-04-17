@@ -10,6 +10,7 @@ from .views import (
     DeleteAccountView,
     WithdrawView,
     DepositView,
+    PaymentView,
     
     not_found,
     index,
@@ -29,4 +30,5 @@ urlpatterns = [
     path('not-found/', not_found, name='not-found'),
     path('withdraw/', WithdrawView.as_view(), name='withdraw'),
     path('deposit/', DepositView.as_view(), name='deposit'),
+    path('pay/', PaymentView.as_view(), name='pay'),
 ]

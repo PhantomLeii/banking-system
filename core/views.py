@@ -32,7 +32,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             account_transactions = Transaction.objects.filter(account=account)
             all_transactions.extend(account_transactions)
         
-        sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp, reverse=True)
+        sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp, reverse=True)[:10]
         context = {'balance': total_balance, 'transactions': sorted_transactions}
         return render(request, self.template_name, context=context)
 
@@ -165,14 +165,31 @@ class DeleteAccountView(LoginRequiredMixin, TemplateView):
 class WithdrawView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/withdraw_form.html'
 
-    @staticmethod
-    def __get_user_accounts(user):
-        accounts = Account.objects.filter(user=user)
-        return accounts
-
     def get(self, request):
         form = WithdrawForm(request.user)
         return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        pass
+        form = WithdrawForm(request.user, request.POST)
+        if form.is_valid():
+            error = None
+            account_id = form.cleaned_data['account']
+            amount = form.cleaned_data['amount']
+
+            account = Account.objects.get(id=account_id)
+            if account.balance > amount:
+                account.balance -= amount
+                
+                transaction = Transaction.objects.create(
+                    account=account,
+                    amount=amount,
+                    reference="CASH WITHDRAWAL"
+                )
+
+                account.save()
+                transaction.save()
+                return redirect('home')
+            else:
+                error = "Insufficient funds"
+            
+            return render(request, self.template_name, {'form': form, 'error': error})

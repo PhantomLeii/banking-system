@@ -1,7 +1,11 @@
 {% extends "base.html" %} {% block content %}
 <main>
 	<section class="container">
-		<form action="" method="post">
+		<form action="{% url "withdraw" %}" method="post">
+			{% csrf_token %}
+			{% if error %}
+			<p class="error_message">{{ error }}</p>
+			{% endif %}
 			{{ form.as_p }}
 			<button type="submit">Withdraw</button>
 		</form>

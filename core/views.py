@@ -22,6 +22,7 @@ def not_found(request):
     template = 'routes/account_not_found.html'
     return render(request, template, {})
 
+
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/index.html'
 

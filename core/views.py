@@ -239,8 +239,50 @@ class PaymentView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/payment_form.html'
     
     def get(self, request):
-        form = PaymentForm()
+        form = PaymentForm(request.user)
         return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        pass
+        print(request.POST)
+        form = PaymentForm(request.user, request.POST)
+        if form.is_valid():
+            error = None
+            sender_id = form.cleaned_data['sender']
+            recipient_id = form.cleaned_data['recipient']
+            amount = form.cleaned_data['amount']
+            reference = form.cleaned_data['reference']
+
+            sender_account = Account.objects.get(id=sender_id)
+            recipient_user = User.objects.get(id=recipient_id)
+
+            recipient_account = Account.objects.filter(user=recipient_user).first()
+
+            if sender_account.balance >= amount:
+                sender_account.balance -= amount
+                recipient_account.balance += amount
+
+                sender_transaction = Transaction.objects.create(
+                    account=sender_account,
+                    amount=amount,
+                    reference=reference
+                )
+
+                recipient_transaction = Transaction.objects.create(
+                    account=recipient_account,
+                    amount=amount,
+                    reference=reference
+                )
+
+                sender_transaction.transaction = recipient_transaction
+                recipient_transaction.transaction = sender_transaction
+
+                sender_account.save()
+                recipient_account.save()
+                sender_transaction.save()
+                recipient_transaction.save()
+
+                return redirect('home')
+            else:
+                error = 'Insufficient funds'
+            
+            return render(request, self.template_name, {'form': form, 'error': error})

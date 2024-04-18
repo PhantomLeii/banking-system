@@ -48,25 +48,22 @@ class DepositForm(AccountForm):
 
 
 class PaymentForm(forms.Form):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(PaymentForm, self).__init__(*args, **kwargs)
-        self.fields['recipient'].choices = self.get_recipient_choices()
+        self.fields['recipient'].choices = self.get_recipient_choices(user)
+        self.fields['sender'].choices = self.get_sender_choices(user)
     
-    def get_recipient_choices(self):
+    def get_recipient_choices(self, request_user):
         all_users = User.objects.all()
-        choices = [(user.id, user.email) for user in all_users]
+        choices = [(user.id, user.email) for user in all_users if user != request_user]
         return choices
     
-    def clean(self):
-        cleaned_data = super().clean()
-        recipeient_id = cleaned_data.get('recipient')
-        recipeient_user = User.objects.get(id=recipeient_id)
-
-        recipient_account = Account.objects.filter(user=recipeient_user).first()
-        if not recipient_account:
-            raise forms.ValidationError('Recipient has no active accounts')
-        cleaned_data['recipient_account'] = recipient_account
-        return cleaned_data
+    def get_sender_choices(self, user):
+        sender_accounts = Account.objects.filter(user=user)
+        choices = [(sender.id, sender.name) for sender in sender_accounts if sender.balance > 0]
+        return choices
     
+    sender = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class': 'form-control'}))
     recipient = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class': 'form-contron'}))
-    amount = forms.DecimalField(max_digits=10, decimal_places=2)    
+    amount = forms.DecimalField(max_digits=10, decimal_places=2)
+    reference = forms.CharField(max_length=255)

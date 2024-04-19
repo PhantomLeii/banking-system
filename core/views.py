@@ -33,7 +33,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
     
     def get(self, request):
         accounts = self.__get_user_accounts(user=request.user)
-        total_balance = sum([i.balance for i in accounts])
+        total_balance = sum([account.balance for account in accounts])
 
         all_transactions = []
         for account in accounts:
@@ -43,6 +43,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
         sorted_transactions = sorted(all_transactions, key=lambda x: x.timestamp, reverse=True)[:10]
         context = {'balance': total_balance, 'transactions': sorted_transactions}
         return render(request, self.template_name, context=context)
+
 
 class LoginView(TemplateView):
     template_name = 'routes/login_form.html'
@@ -237,13 +238,21 @@ class DepositView(LoginRequiredMixin, TemplateView):
 
 class PaymentView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/payment_form.html'
+
+    @staticmethod
+    def __create_transaction(account, amount, reference):
+        transaction = Transaction.objects.create(
+            account=account,
+            amount=amount,
+            reference=reference
+        )
+        return transaction
     
     def get(self, request):
         form = PaymentForm(request.user)
         return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        print(request.POST)
         form = PaymentForm(request.user, request.POST)
         if form.is_valid():
             error = None
@@ -261,17 +270,8 @@ class PaymentView(LoginRequiredMixin, TemplateView):
                 sender_account.balance -= amount
                 recipient_account.balance += amount
 
-                sender_transaction = Transaction.objects.create(
-                    account=sender_account,
-                    amount=amount,
-                    reference=reference
-                )
-
-                recipient_transaction = Transaction.objects.create(
-                    account=recipient_account,
-                    amount=amount,
-                    reference=reference
-                )
+                sender_transaction = self.__create_transaction(sender_account, amount, reference)
+                recipient_transaction = self.__create_transaction(recipient_account, amount, reference)
 
                 sender_transaction.transaction = recipient_transaction
                 recipient_transaction.transaction = sender_transaction
@@ -284,5 +284,5 @@ class PaymentView(LoginRequiredMixin, TemplateView):
                 return redirect('home')
             else:
                 error = 'Insufficient funds'
-            
-            return render(request, self.template_name, {'form': form, 'error': error})
+                
+        return render(request, self.template_name, {'form': form, 'error': error})

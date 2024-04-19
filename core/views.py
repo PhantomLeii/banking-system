@@ -286,3 +286,11 @@ class PaymentView(LoginRequiredMixin, TemplateView):
                 error = 'Insufficient funds'
                 
         return render(request, self.template_name, {'form': form, 'error': error})
+
+
+class UserDetail(TemplateView):
+    template_name = 'routes/user_profile.html'
+
+    def get(self, request, email):
+        user = User.objects.get(email=email)
+        return render(request, self.template_name, {'user': user})

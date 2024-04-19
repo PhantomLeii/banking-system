@@ -1,8 +1,5 @@
-from typing import Any, Mapping
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.forms.renderers import BaseRenderer
-from django.forms.utils import ErrorList
 from .models import User, Account
 
 

@@ -43,3 +43,17 @@ window.addEventListener('DOMContentLoaded', () => {
 		transactionsColumn.classList.remove('hidden');
 	}
 });
+
+// Activate scroll when more than 7 items are in list
+const userDetails = document.querySelector('#user-detail .detail');
+
+document.addEventListener('DOMContentLoaded', () => {
+	const itemCount = userDetails.children.length;
+	console.log(itemCount);
+
+	if (itemCount > 6) {
+		userDetails.style.overflowY = 'scroll';
+	} else {
+		userDetails.style.overflowY = 'none';
+	}
+});

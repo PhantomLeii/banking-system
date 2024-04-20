@@ -1,10 +1,66 @@
 {% extends "base.html" %} {% block content %}
 <main>
-	<section class="container">
+	<section id="user-detail" class="container">
 		<div class="detail">
 			<div class="card">
-				<h3>Full Name:</h3>
+				<h2>Full Name:</h2>
+				{% if user.middle_name %}
+				<p>{{ user.name }} {{ user.middle_name }} {{ user.surname }}</p>
+				{% else %}
 				<p>{{ user.name }} {{ user.surname }}</p>
+				{% endif %}
+			</div>
+			<div class="card">
+				<h2>Email:</h2>
+				<p>{{ user.email }}</p>
+			</div>
+			<div class="card">
+				<h2>Gender:</h2>
+				<p>{{ user.gender.capitalize }}</p>
+			</div>
+			<div class="card">
+				<h2>Street Number:</h2>
+				{% if user.street_number %}
+				<p>{{ user.street_number }}</p>
+				{% else %}
+				<p class="info">None</p>
+				{% endif %}
+			</div>
+			<div class="card">
+				<h2>Street Name:</h2>
+				{% if user.street_name %}
+				<p>{{ user.street_name }}</p>
+				{% else %}
+				<p class="info">None</p>
+				{% endif %}
+			</div>
+			<div class="card">
+				<h2>Suburb:</h2>
+				{% if user.suburb %}
+				<p>{{ user.suburb }}</p>
+				{% else %}
+				<p class="info">None</p>
+				{% endif %}
+			</div>
+			<div class="card">
+				<h2>Phone Number:</h2>
+				<p>{{ user.phone_number }}</p>
+			</div>
+			<div class="card">
+				<h2>Ethnicity:</h2>
+				{% if user.ethnicity %}
+				<p>{{ user.ethnicity }}</p>
+				{% else %}
+				<p class="info">None</p>
+				{% endif %}
+			</div>
+			<div class="card">
+				<h2>Date of birth:</h2>
+				{% if user.birth_date %}
+				<p>{{ user.birth_date }}</p>
+				{% else %}
+				<p class="info">None</p>
+				{% endif %}
 			</div>
 		</div>
 	</section>

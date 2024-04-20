@@ -14,6 +14,12 @@ class RegisterForm(UserCreationForm):
         fields = ['email'] + list(model.REQUIRED_FIELDS) + ['password1', 'password2']
 
 
+class UpdateUserForm(forms.Form):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+
 class CreateAccountForm(forms.Form):
     name = forms.CharField(max_length=255)
     account_type = forms.ChoiceField(choices=Account.TYPE_CHOICES)

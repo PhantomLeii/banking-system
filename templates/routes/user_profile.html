@@ -63,6 +63,10 @@
 				{% endif %}
 			</div>
 		</div>
+		<div class="btn-box">
+			<a href="{% url "update-user" %}" class="btn">Edit Profile</a>
+			<a href="{% url "delete-user" %}" class="btn delete">Delete Profile</a>
+		</div>
 	</section>
 </main>
 {% endblock content %}

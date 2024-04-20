@@ -11,6 +11,7 @@ from .forms import (
     WithdrawForm,
     DepositForm,
     PaymentForm,
+    UpdateUserForm,
 )
 
 
@@ -294,3 +295,24 @@ class UserDetail(TemplateView):
     def get(self, request, email):
         user = User.objects.get(email=email)
         return render(request, self.template_name, {'user': user})
+
+
+class UserUpdateView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/update_user_data.html'
+
+    def get(self, request, email):
+        form = UpdateUserForm()
+        return render(request, self.template_name, {'form', form})
+    
+
+class DeleteUserView(LoginRequiredMixin, TemplateView):
+    template_name = 'routes/delete_user_form.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+    def post(self, request):
+        user = User.objects.get(user=request.user)
+        user.delete()
+        logout(request)
+        return redirect('index')

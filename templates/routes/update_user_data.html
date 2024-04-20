@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <section class="container">
+        <form action="{% url "update-user" %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </section>
+</main>
+{% endblock content %}

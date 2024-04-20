@@ -12,6 +12,8 @@ from .views import (
     DepositView,
     PaymentView,
     UserDetail,
+    DeleteUserView,
+    UserUpdateView,
     
     not_found,
     index,
@@ -33,4 +35,6 @@ urlpatterns = [
     path('deposit/', DepositView.as_view(), name='deposit'),
     path('pay/', PaymentView.as_view(), name='pay'),
     path('profile/<str:email>/', UserDetail.as_view(), name='user-detail'),
+    path("update-user-data/", UserUpdateView.as_view(), name="update-user"),
+    path('delete-user/', DeleteUserView.as_view(), name='delete-user'),
 ]

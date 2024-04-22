@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div class="btn-box">
-			<a href="{% url "update-user" %}" class="btn">Edit Profile</a>
+			<a href="{% url "update-user" email=user.email %}" class="btn">Edit Profile</a>
 			<a href="{% url "delete-user" %}" class="btn delete">Delete Profile</a>
 		</div>
 	</section>

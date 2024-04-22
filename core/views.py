@@ -302,7 +302,8 @@ class UserUpdateView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, email):
         form = UpdateUserForm()
-        return render(request, self.template_name, {'form': form})
+        user = User.objects.get(email=email)
+        return render(request, self.template_name, {'form': form, 'user': user})
     
 
 class DeleteUserView(LoginRequiredMixin, TemplateView):

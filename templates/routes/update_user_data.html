@@ -3,7 +3,7 @@
 {% block content %}
 <main>
     <section class="container">
-        <form action="{% url "update-user" %}" method="post">
+        <form action="{% url "update-user" user.email %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Save</button>

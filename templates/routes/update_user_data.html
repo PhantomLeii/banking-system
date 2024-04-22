@@ -5,6 +5,7 @@
     <section class="container">
         <form action="{% url "update-user" user.email %}" method="post">
             {% csrf_token %}
+            <p class="error_message">Careful not to accidentally change anything you don't wnat to change.</p>
             {{ form.as_p }}
             <button type="submit">Save</button>
         </form>

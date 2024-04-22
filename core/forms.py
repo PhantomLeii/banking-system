@@ -14,10 +14,15 @@ class RegisterForm(UserCreationForm):
         fields = ['email'] + list(model.REQUIRED_FIELDS) + ['password1', 'password2']
 
 
-class UpdateUserForm(forms.Form):
+class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['email', 'name', 'middle_name', 'surname', 'birth_date',
+                  'street_number', 'suburb', 'city', 'phone_number']
+        
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 class CreateAccountForm(forms.Form):

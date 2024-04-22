@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <main>
 	<section id="user-detail" class="container">
-		<div class="detail">
+		<form class="detail">
 			<div class="card">
 				<h2>Full Name:</h2>
 				{% if user.middle_name %}
@@ -62,11 +62,11 @@
 				<p class="info">None</p>
 				{% endif %}
 			</div>
-		</div>
-		<div class="btn-box">
-			<a href="{% url "update-user" user.email %}" class="btn">Edit Profile</a>
-			<a href="{% url "delete-user" %}" class="btn delete">Delete Profile</a>
-		</div>
+			<div class="btn-box">
+				<a href="{% url "update-user" user.email %}" class="btn">Edit Profile</a>
+				<a href="{% url "delete-user" %}" class="btn delete">Delete Profile</a>
+			</div>
+		</form>
 	</section>
 </main>
 {% endblock content %}

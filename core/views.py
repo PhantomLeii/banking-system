@@ -301,8 +301,16 @@ class UserUpdateView(LoginRequiredMixin, TemplateView):
     template_name = 'routes/update_user_data.html'
 
     def get(self, request, email):
-        form = UpdateUserForm()
         user = User.objects.get(email=email)
+        form = UpdateUserForm(instance=user)
+        return render(request, self.template_name, {'form': form, 'user': user})
+
+    def post(self, request, email):
+        user = User.objects.get(email=email)
+        form = UpdateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-detail', email=user.email)
         return render(request, self.template_name, {'form': form, 'user': user})
     
 

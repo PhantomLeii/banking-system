@@ -86,6 +86,19 @@ class LogoutView(TemplateView):
 class RegisterView(TemplateView):
     template_name = 'routes/register.html'
 
+    @staticmethod
+    def __create_main_account(request_user):
+        try:
+            user = User.objects.get(id=request_user.id)
+        except User.DoesNotExist:
+            return None
+
+        main_account = Account.objects.create(
+            name="Main Account",
+            account_type='current'
+        )
+        main_account.save()
+
     def get(self, request):
         form = RegisterForm()
         return render(request, self.template_name, {'form': form})
@@ -95,6 +108,11 @@ class RegisterView(TemplateView):
         if form.is_valid():
             error_message = None
             form.save()
+
+            main_account = self.__create_main_account(request.user)
+            if main_account is None:
+                # return redirect('User not found')
+                pass
             return redirect('login')
         else:
             error_message = 'Invalid form data'

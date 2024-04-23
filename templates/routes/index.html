@@ -33,7 +33,11 @@
 			<div class="card">
 				<p class="info">{{ transaction.timestamp|date:"M Y, d @ H:i" }}</p>
 				<div class="transaction-parent">
+					{% if transaction.account.user != user %}
 					<h3>From:</h3>
+					{% else %}
+					<h3>Account:</h3>
+					{% endif %}
 					<p>{{ transaction.account.name.upper }}</p>
 				</div>
 				<div class="transaction-data">

@@ -87,17 +87,25 @@ class RegisterView(TemplateView):
     template_name = 'routes/register.html'
 
     @staticmethod
-    def __create_main_account(request_user):
+    def __create_main_account(user):
         try:
-            user = User.objects.get(id=request_user.id)
+            user = User.objects.get(id=user.id)
         except User.DoesNotExist:
             return None
 
         main_account = Account.objects.create(
+            user=user,
             name="Main Account",
             account_type='current'
         )
         main_account.save()
+    
+    @staticmethod
+    def __get_new_user():
+        users = User.objects.all()
+        sorted_users = sorted(users, key=lambda user: user.id)
+        latest_user = sorted_users[-1]
+        return latest_user
 
     def get(self, request):
         form = RegisterForm()
@@ -109,13 +117,15 @@ class RegisterView(TemplateView):
             error_message = None
             form.save()
 
-            main_account = self.__create_main_account(request.user)
+            new_user = self.__get_new_user()
+            main_account = self.__create_main_account(new_user)
             if main_account is None:
                 # return redirect('User not found')
                 pass
             return redirect('login')
         else:
             error_message = 'Invalid form data'
+            
         context = {'form': form, 'error_message': error_message}
         return render(request, self.template_name, context)
 

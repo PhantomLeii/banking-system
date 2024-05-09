@@ -3,7 +3,7 @@ import secrets, string, sys, os
 def main():
     dot_env_path = os.path.join('config', '.env')
 
-    secret = generate_secret(50).replace('"', r'\"').replace("'", r"\'")
+    secret = generate_secret(50).replace('"', r'\"').replace("'", r"\'").replace('#', r'\#')
 
     write_secret(dot_env_path, secret)
 

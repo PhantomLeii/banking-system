@@ -17,3 +17,7 @@ git clone https://github.com/PhantomLeii/banking-system/
   ```shell
   python -m venv venv
   ```
+  - Mac & Linux
+  ```shell
+  python3 -m venv venv
+  ```

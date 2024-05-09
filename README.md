@@ -12,12 +12,13 @@ The application consists of all the basic functionality that any web app consist
 ```shell
 git clone https://github.com/PhantomLeii/banking-system/
 ```
-2. Cd into the directory of the app and create a virtual environment.
-  - Windows:
-  ```shell
-  python -m venv venv
-  ```
-  - Mac & Linux
-  ```shell
-  python3 -m venv venv
-  ```
+2. Cd into the cloned repo, create a virtual environment and install the requirements in requirement.txt
+```shell
+cd banking-system
+
+# Windows
+python -m venv venv
+
+# Mac & Linux
+python3 -m venv venv
+```

@@ -21,4 +21,18 @@ python -m venv venv
 
 # Mac & Linux
 python3 -m venv venv
+
+# Acitivate environment
+# Windows
+.\venv\Scripts\activate
+
+# Mac & Linux
+source venv/bin/activate
+
+# Install requirements
+# Windows
+pip install -r requirements.txt
+
+# Mac & Linux
+pip3 install -r requirements.txt
 ```

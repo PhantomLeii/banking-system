@@ -4,6 +4,9 @@ def main():
     dot_env_path = os.path.join('config', '.env')
 
     write_secret(dot_env_path, generate_secret(50))
+
+    print('.env created successfully!')
+    print('SECRET propulated successfully')
     
     return None
 

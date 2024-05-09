@@ -12,7 +12,7 @@ The application consists of all the basic functionality that any web app consist
 ```shell
 git clone https://github.com/PhantomLeii/banking-system/
 ```
-2. Cd into the cloned repo, create a virtual environment and install the requirements in requirement.txt
+2. Cd into the cloned repo, create a virtual environment and install the requirements in requirements.txt
 ```shell
 cd banking-system
 
@@ -36,3 +36,12 @@ pip install -r requirements.txt
 # Mac & Linux
 pip3 install -r requirements.txt
 ```
+3. Run keygen to create a .env file with a secret key
+  > The keygen with overwrite previous secrets if it is run more than once. This helps with making it easy to refresh the keys.
+  ```shell
+  # Windows
+  python keygen.py
+
+  # Mac & Linux
+  python3 keygen.py
+  ```

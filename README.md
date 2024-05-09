@@ -7,8 +7,13 @@ The application consists of all the basic functionality that any web app consist
 
 > Recreate the software and follow along with the documentation to understand how to use the application.
 
-## Reacreation:
+## Reacreation
 1. Clone the repo to your system:
 ```shell
-git clone https://github.com/PhantomLeii/
+git clone https://github.com/PhantomLeii/banking-system/
 ```
+2. Cd into the directory of the app and create a virtual environment.
+  - Windows:
+  ```shell
+  python -m venv venv
+  ```

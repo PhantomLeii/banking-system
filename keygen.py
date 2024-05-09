@@ -3,7 +3,9 @@ import secrets, string, sys, os
 def main():
     dot_env_path = os.path.join('config', '.env')
 
-    write_secret(dot_env_path, generate_secret(50))
+    secret = generate_secret(50).replace('"', r'\"').replace("'", r"\'")
+
+    write_secret(dot_env_path, secret)
 
     print('.env created successfully!')
     print('SECRET propulated successfully')

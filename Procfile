@@ -1,1 +1,1 @@
-web: gunicorn nebulaBanking.wsgi
+web: gunicorn config.wsgi:application --log-file -

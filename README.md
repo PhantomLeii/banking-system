@@ -10,7 +10,7 @@ The application consists of all the basic functionality that any web app consist
 ## Reacreation
 1. Clone the repo to your system:
 ```shell
-git clone https://github.com/PhantomLeii/banking-system/
+git clone https://github.com/PhantomLeii/banking-system.git
 ```
 2. Cd into the cloned repo, create a virtual environment and install the requirements in requirements.txt
 ```shell

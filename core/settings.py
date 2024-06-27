@@ -16,6 +16,8 @@ from datetime import timedelta
 
 import os
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -53,7 +56,7 @@ PROJECT_APPS = ["users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
-THIRD_PARTY_MIDDLEWARE = ["corsheaders.middleware.CorsMiddlware"]
+THIRD_PARTY_MIDDLEWARE = ["corsheaders.middleware.CorsMiddleware"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

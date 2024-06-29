@@ -32,6 +32,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+AUTH_USER_MODEL = "users.CustomUser"
 
 
 # Application definition
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    "users",
 ]
 
 MIDDLEWARE = [

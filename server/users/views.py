@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegistrationSerializer, ProfileSerializer
+from .serializers import RegistrationSerializer, ProfileSerializer, UpdateUserSerializer
 
 User = get_user_model()
 
@@ -16,6 +16,13 @@ class RegistrationView(CreateAPIView):
 
 class UserProfileView(RetrieveAPIView):
     serializer_class = ProfileSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
+class UpdateUserView(UpdateAPIView):
+    serializer_class = UpdateUserSerializer
 
     def get_object(self):
         return self.request.user

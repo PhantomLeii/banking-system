@@ -3,7 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Account
-from .serializers import CreatAccountSerializer, AccountsSerializer
+from .serializers import (
+    CreatAccountSerializer,
+    AccountsSerializer,
+    AccountDetailSerializer,
+)
 
 
 class CreateAccountView(CreateAPIView):
@@ -19,10 +23,22 @@ class CreateAccountView(CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AccountsDetailView(RetrieveAPIView):
+class UserAccountsView(RetrieveAPIView):
     serializer_class = AccountsSerializer
 
     def get(self, request):
         accounts = Account.objects.filter(user=request.user)
         serializer = self.serializer_class(accounts, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
+
+
+class AccountDetailView(RetrieveAPIView):
+    serializer_class = AccountDetailSerializer
+
+    def get(self, request, pk):
+        try:
+            account = Account.objects.filter(user=request.user).get(pk=pk)
+            serializer = self.serializer_class(account)
+            return Response(serializer.data, status.HTTP_200_OK)
+        except Account.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
